@@ -36,9 +36,8 @@
                   <td>Member</td>
                   <td>Member</td>
                   <td>
-                    <el-button type="success" size="small">编辑</el-button>                  
-                    <el-button type="danger" size="small">删除</el-button>
-                    </td>
+                    <span class="badge badge-success">Active</span>
+                  </td>
                 </tr>
               </tbody>
             </table>
