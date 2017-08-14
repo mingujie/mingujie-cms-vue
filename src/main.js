@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import { Input } from 'element-ui'
+Vue.component(Input.name, Input)
 
 /* eslint-disable no-new */
 new Vue({

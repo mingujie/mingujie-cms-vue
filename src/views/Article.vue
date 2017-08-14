@@ -5,6 +5,12 @@
         <div class="card">
           <div class="card-header">
             <button type="button" class="btn btn-primary"><i class="fa fa-star"></i>&nbsp; 添加内容</button>
+            <el-input
+  placeholder="请选择日期"
+  icon="search"
+  v-model="keyword"
+  :on-icon-click="searchArticle">
+</el-input>
           </div>
           <div class="card-block">
             <table class="table table-bordered table-striped table-sm">
@@ -55,6 +61,16 @@
 
 <script>
 export default {
-  name: 'dashboard'
+  name: 'dashboard',
+  data () {
+    return {
+      keyword: ''
+    }
+  },
+  methods: {
+    searchArticle () {
+
+    }
+  }
 }
 </script>

@@ -2,9 +2,6 @@
   <div class="sidebar">
     <nav class="sidebar-nav">
       <ul class="nav">
-        <li class="nav-item">
-          <router-link :to="'/dashboard'" class="nav-link"><i class="icon-speedometer"></i> Dashboard</router-link>
-        </li>
         
         <li class="nav-item">
           <router-link tag="li" class="nav-item nav-dropdown" :to="{ path: '/article'}" disabled>
@@ -21,13 +18,13 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="'/dashboard'" class="nav-link"><i class="icon-speedometer"></i> 图片管理 </router-link>
+          <router-link :to="'#'" class="nav-link"><i class="icon-speedometer"></i> 图片管理 </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="'/dashboard'" class="nav-link"><i class="icon-speedometer"></i> 会员管理 </router-link>
+          <router-link :to="'@'" class="nav-link"><i class="icon-speedometer"></i> 会员管理 </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="'/dashboard'" class="nav-link"><i class="icon-speedometer"></i> 系统设置 </router-link>
+          <router-link :to="'#'" class="nav-link"><i class="icon-speedometer"></i> 系统设置 </router-link>
         </li>
       </ul>
     </nav>
