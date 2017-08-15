@@ -7,6 +7,7 @@ import Full from '@/containers/Full'
 // Views
 import Dashboard from '@/views/Dashboard'
 import Article from '@/views/Article'
+import ArticleForm from '@/views/ArticleForm'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +30,11 @@ export default new Router({
           path: 'article',
           name: 'Article',
           component: Article
+        },
+        {
+          path: '/articleform',
+          name: 'ArticleForm',
+          component: ArticleForm
         }
       ]
     }
