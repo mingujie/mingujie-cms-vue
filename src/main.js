@@ -3,12 +3,12 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import {Input, Button, Pagination, Form} from 'element-ui'
-
+import {Input, Button, Pagination, Form, Radio} from 'element-ui'
 Vue.component(Input.name, Input)
 Vue.component(Pagination.name, Pagination)
 Vue.component(Button.name, Button)
 Vue.component(Form.name, Form)
+Vue.component(Radio.name, Radio)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
