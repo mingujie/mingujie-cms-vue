@@ -17,7 +17,6 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard',
       name: 'Home',
       component: Full,
       children: [
@@ -30,9 +29,16 @@ export default new Router({
           path: 'article',
           name: 'Article',
           component: Article
-        },
+        }
+      ]
+    },
+    {
+      path: '/content',
+      name: 'Content',
+      component: Full,
+      children: [
         {
-          path: '/articleform',
+          path: '/content/articleform',
           name: 'ArticleForm',
           component: ArticleForm
         }

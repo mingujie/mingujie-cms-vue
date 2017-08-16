@@ -11,7 +11,7 @@
           <template slot="title">手游系列</template>
           <el-submenu index="1-4">
             <template slot="title">王者荣耀</template>
-            <el-menu-item index="1-4-2">新闻</el-menu-item>
+            <el-menu-item index="1-4-2" @click="$router.push({ path: '/content/articleform'})">新闻</el-menu-item>
             <el-menu-item index="1-4-3">皮肤</el-menu-item>
             <el-menu-item index="1-4-4">视频</el-menu-item>
             <el-menu-item index="1-4-5">图片</el-menu-item>
