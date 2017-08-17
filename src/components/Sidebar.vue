@@ -12,7 +12,7 @@
           <el-submenu index="1-4">
             <template slot="title">王者荣耀</template>
             <el-menu-item index="1-4-2" @click="$router.push({ path: '/content/articleform'})">新闻</el-menu-item>
-            <el-menu-item index="1-4-3">皮肤</el-menu-item>
+            <el-menu-item index="1-4-3" @click="$router.push({ path: '/content/skinform'})">皮肤</el-menu-item>
             <el-menu-item index="1-4-4">视频</el-menu-item>
             <el-menu-item index="1-4-5">图片</el-menu-item>
           </el-submenu>

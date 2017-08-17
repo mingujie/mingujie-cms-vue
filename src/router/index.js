@@ -8,6 +8,8 @@ import Full from '@/containers/Full'
 import Dashboard from '@/views/Dashboard'
 import Article from '@/views/Article'
 import ArticleForm from '@/views/ArticleForm'
+import SkinForm from '@/views/SkinForm'
+
 Vue.use(Router)
 
 export default new Router({
@@ -41,7 +43,13 @@ export default new Router({
           path: '/content/articleform',
           name: 'ArticleForm',
           component: ArticleForm
+        },
+        {
+          path: '/content/skinform',
+          name: 'SkinForm',
+          component: SkinForm
         }
+
       ]
     }
   ]
