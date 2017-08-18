@@ -9,6 +9,8 @@ import Dashboard from '@/views/Dashboard'
 import Article from '@/views/Article'
 import ArticleForm from '@/views/ArticleForm'
 import SkinForm from '@/views/SkinForm'
+import PhotoForm from '@/views/PhotoForm'
+import VideoForm from '@/views/VideoForm'
 
 Vue.use(Router)
 
@@ -48,6 +50,16 @@ export default new Router({
           path: '/content/skinform',
           name: 'SkinForm',
           component: SkinForm
+        },
+        {
+          path: '/content/videoform',
+          name: 'VideoForm',
+          component: VideoForm
+        },
+        {
+          path: '/content/photoform',
+          name: 'PhotoForm',
+          component: PhotoForm
         }
 
       ]
