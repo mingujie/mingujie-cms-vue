@@ -4,6 +4,14 @@
       <el-submenu index="1">
         <template slot="title"><i class="el-icon-document"></i>内容管理</template>
         <el-menu-item-group>
+            <el-submenu index="1-4">
+            <template slot="title">游戏属性</template>
+            <el-menu-item index="1-4-2" @click="$router.push({ path: '/content/gameform'})">游戏</el-menu-item>
+            <el-menu-item index="1-4-3" @click="$router.push({ path: '/content/roleform'})">职业</el-menu-item>
+            <el-menu-item index="1-4-4" @click="$router.push({ path: '/content/heroform'})">英雄</el-menu-item>
+          </el-submenu>
+        </el-menu-item-group>
+        <el-menu-item-group>
           <template slot="title">PC系列</template>
           <el-menu-item index="1-1">英雄联盟</el-menu-item>
         </el-menu-item-group>

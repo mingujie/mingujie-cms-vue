@@ -11,6 +11,9 @@ import ArticleForm from '@/views/ArticleForm'
 import SkinForm from '@/views/SkinForm'
 import PhotoForm from '@/views/PhotoForm'
 import VideoForm from '@/views/VideoForm'
+import GameForm from '@/views/GameForm'
+import RoleForm from '@/views/RoleForm'
+import HeroForm from '@/views/HeroForm'
 
 Vue.use(Router)
 
@@ -60,9 +63,22 @@ export default new Router({
           path: '/content/photoform',
           name: 'PhotoForm',
           component: PhotoForm
-        }
-
-      ]
+        },
+        {
+          path: '/content/gameform',
+          name: 'GameForm',
+          component: GameForm
+        },
+        {
+          path: '/content/roleform',
+          name: 'RoleForm',
+          component: RoleForm
+        },
+        {
+          path: '/content/heroform',
+          name: 'HeroForm',
+          component: HeroForm
+        }]
     }
   ]
 })

@@ -5,7 +5,8 @@ import App from './App'
 import router from './router'
 import {Input, Button, Pagination, Form, Radio,Option, Dialog, 
 	Menu, Submenu, MenuItem, MenuItemGroup, Select,
-	DatePicker} from 'element-ui'
+	DatePicker, Transfer} from 'element-ui'
+	
 Vue.component(Input.name, Input)
 Vue.component(Pagination.name, Pagination)
 Vue.component(Button.name, Button)
@@ -19,6 +20,8 @@ Vue.component(MenuItemGroup.name, MenuItemGroup)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
 Vue.component(DatePicker.name, DatePicker)
+Vue.component(Transfer.name, Transfer)
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
