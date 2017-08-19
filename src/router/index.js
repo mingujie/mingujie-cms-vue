@@ -7,6 +7,7 @@ import Full from '@/containers/Full'
 // Views
 import Dashboard from '@/views/Dashboard'
 import Article from '@/views/Article'
+import ArticleList from '@/views/ArticleList'
 import ArticleForm from '@/views/ArticleForm'
 import SkinForm from '@/views/SkinForm'
 import PhotoForm from '@/views/PhotoForm'
@@ -16,6 +17,10 @@ import RoleForm from '@/views/RoleForm'
 import HeroForm from '@/views/HeroForm'
 import PictureManager from '@/views/PictureManager'
 import BasicConfig from '@/views/system/BasicConfig'
+import Login from '@/views/pages/Login'
+import Register from '@/views/pages/Register'
+
+
 Vue.use(Router)
 
 export default new Router({
@@ -63,10 +68,18 @@ export default new Router({
       component: Full,
       children: [
         {
-          path: '/content/articleform',
-          name: 'ArticleForm',
-          component: ArticleForm
+          path: 'articlelist',
+          name: 'ArticleList',
+          component: ArticleList,
+          children: [
+            {
+              path: 'articleform',
+              name: 'ArticleForm',
+              component: ArticleForm
+            }
+          ]
         },
+
         {
           path: '/content/skinform',
           name: 'SkinForm',
@@ -97,6 +110,15 @@ export default new Router({
           name: 'HeroForm',
           component: HeroForm
         }]
+    },{
+      path: '/logout',
+      name: 'Login',
+      component: Login,      
+    },{
+      path: '/register',
+      name: 'Register',
+      component: Register,      
     }
+
   ]
 })

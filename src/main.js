@@ -5,7 +5,8 @@ import App from './App'
 import router from './router'
 import {Input, Button, Pagination, Form, Radio,Option, Dialog, 
 	Menu, Submenu, MenuItem, MenuItemGroup, Select,
-	DatePicker, Transfer, Cascader, Card, Upload} from 'element-ui'
+	DatePicker, Transfer, Cascader, Card, Upload, Table,
+	TableColumn} from 'element-ui'
 	
 Vue.component(Input.name, Input)
 Vue.component(Pagination.name, Pagination)
@@ -24,6 +25,9 @@ Vue.component(Transfer.name, Transfer)
 Vue.component(Cascader.name, Cascader)
 Vue.component(Card.name, Card)
 Vue.component(Upload.name, Upload)
+Vue.component(Table.name, Table)
+Vue.component(TableColumn.name, TableColumn)
+
 
 /* eslint-disable no-new */
 new Vue({

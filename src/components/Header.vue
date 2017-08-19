@@ -12,13 +12,7 @@
           <span class="d-md-down-none">admin</span>
         </span>
         <div slot="dropdown-menu"class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a>
-          <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
-          <div class="divider"></div>
-          <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock Account</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
+          <a class="dropdown-item" @click="$router.push({ path: '/logout'})"><i class="fa fa-lock"></i> Logout</a>
         </div>
       </dropdown>
 <li class="nav-item hidden-md-down"><a href="javascript:;" class="nav-link navbar-toggler aside-menu-toggler">☰</a></li>
@@ -60,3 +54,9 @@ export default {
   }
 }
 </script>
+<style>
+  .dropdown-menu {
+    top: 42px;
+    cursor: pointer;
+  }
+</style>
