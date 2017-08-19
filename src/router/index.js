@@ -15,6 +15,7 @@ import GameForm from '@/views/GameForm'
 import RoleForm from '@/views/RoleForm'
 import HeroForm from '@/views/HeroForm'
 import PictureManager from '@/views/PictureManager'
+import BasicConfig from '@/views/system/BasicConfig'
 Vue.use(Router)
 
 export default new Router({
@@ -41,6 +42,18 @@ export default new Router({
           path: '/picture',
           name: 'PictureManager',
           component: PictureManager
+        }
+      ]
+    },
+    {
+      path: '/system',
+      name: 'System',
+      component: Full,
+      children: [
+        {
+          path: '/system/basic-config',
+          name: 'BasicConfig',
+          component: BasicConfig
         }
       ]
     },

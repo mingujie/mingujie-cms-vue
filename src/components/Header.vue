@@ -21,7 +21,7 @@
           <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
         </div>
       </dropdown>
-
+<li class="nav-item hidden-md-down"><a href="javascript:;" class="nav-link navbar-toggler aside-menu-toggler">☰</a></li>
     </ul>
 
   </navbar>
