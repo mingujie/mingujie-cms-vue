@@ -4,10 +4,12 @@
     <div class="app-body">
       <Sidebar/>
       <main class="main">
+      <div class="product-main">
         <breadcrumb :list="list"/>
         <div class="container-fluid">
           <router-view></router-view>
         </div>
+      </div>
       </main>
     </div>
     <AppFooter/>
@@ -39,3 +41,36 @@ export default {
   }
 }
 </script>
+<style>
+.header-fixed .app-body {
+  margin-top: 0;
+    position: absolute;
+    width: 100%;
+    top: 55px;
+    bottom: 0px;
+    z-index: 100;
+}
+.aside-menu-fixed.aside-menu-hidden .main {
+    width: auto;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    overflow: hidden;
+}
+.product-main {
+    position: absolute;
+    width: auto;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    overflow: hidden;
+    overflow-y: auto;
+    -o-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+}
+</style> 

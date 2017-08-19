@@ -4,25 +4,36 @@
       <div class="col-sm-12 col-md-12">
         <div class="card">
           <div class="card-header">
-            <strong>新建皮肤消息</strong> <small></small>
+            <strong>新建英雄</strong> <small></small>
           </div>
 
           <div class="card-block">
             <el-form ref="form" :model="form" label-width="80px" id="form">
             <div class="form-group row">
-              <label for="text-input" class="col-md-1 form-control-label">标题</label> 
+              <label for="text-input" class="col-md-1 form-control-label">中文名称</label> 
               <div class="col-md-11">
-                  <el-input placeholder="标题最多不超过60个字符1" v-model="form.title">
-                    <template slot="append"><span>0</span>/60</template>
+                  <el-input placeholder="英雄的中文名称" v-model="form.title">
                   </el-input>
               </div>
             </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-1 form-control-label">副标题</label> 
+              <label for="text-input" class="col-md-1 form-control-label">英文名称</label> 
               <div class="col-md-11">
-                  <el-input placeholder="标题最多不超过60个字符" v-model="form.subTitle">
-                    <template slot="append"><span>0</span>/60</template>
+                  <el-input placeholder="英雄的英文名称" v-model="form.subTitle">
                   </el-input>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text-input" class="col-md-1 form-control-label">拼音名称</label> 
+              <div class="col-md-11">
+                  <el-input placeholder="英雄的全拼名称" v-model="form.subTitle">
+                  </el-input>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="text-input" class="col-md-1 form-control-label">头像</label> 
+              <div class="col-md-11">
+                <el-button size="small" @click="dialogPhotoVisible = true">从图片库选择</el-button>
               </div>
             </div>
             <div class="form-group row">
@@ -31,9 +42,8 @@
                 <el-button size="small" @click="dialogPhotoVisible = true">从图片库选择</el-button>
               </div>
             </div>
-
             <div class="form-group row">
-              <label for="text-input" class="col-md-1 form-control-label">类型</label> 
+              <label for="text-input" class="col-md-1 form-control-label">性别</label> 
                 <div class="col-md-11">
                   <el-select v-model="form.skinType" placeholder="请选择">
                     <el-option v-if="skinTypeArr.length" v-for="item in skinTypeArr" :key="item.value" :label="item.label" :value="item.value">
@@ -42,15 +52,12 @@
                 </div>
             </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-1 form-control-label">特效</label> 
-                <div class="col-md-11">
-                  <el-select v-model="form.texiao" multiple placeholder="请选择">
-                    <el-option v-if="texiaoArr.length" v-for="item in texiaoArr" :key="item.value" :label="item.label" :value="item.value">
-                    </el-option>
-                  </el-select>             
-                </div>
+              <label for="text-input" class="col-md-1 form-control-label">身高</label> 
+              <div class="col-md-11">
+                  <el-input placeholder="英雄身高（单位为CM）" v-model="form.title">
+                  </el-input>
+              </div>
             </div>
-
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">价格</label> 
               <div class="col-md-11">
@@ -79,7 +86,6 @@
                   </el-input>
               </div>
             </div>
-
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">上架日期</label> 
                 <div class="col-md-11">
@@ -102,10 +108,25 @@
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">摘要</label> 
               <div class="col-md-11">
-                <label for="prependedInput" class="form-control-label">选填，如果不填写会默认抓取正文前54个字</label>
+                <label for="prependedInput" class="form-control-label">英雄介绍</label>
                 <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
               </div>
             </div>
+
+            <div class="form-group row">
+              <label for="text-input" class="col-md-1 form-control-label">游戏职业</label> 
+              <div class="col-md-11">
+              <span class="demonstration">为英雄选择对应的游戏和职业</span>
+              <div class="block">
+              <el-cascader
+                placeholder="试试搜索：指南"
+                :options="form.heroes"
+                filterable
+              ></el-cascader>
+              </div>
+              </div>
+            </div>
+
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label"></label> 
               <div class="col-md-11">
@@ -164,6 +185,14 @@ export default {
     return {
       dialogPhotoVisible: false,
       form: {
+        heroes:[{
+          value: 'zhinan',
+          label: '指南',
+          children: [{
+            value: 'shejiyuanze',
+            label: '设计原则'        
+            }]
+        }],
         title: '',
         subTitle: '',
         name: '',
@@ -180,7 +209,6 @@ export default {
         dealine: 4,
         salesPrice: '',
         game: '',
-        hero: '',
         skinFrom: ''
       },
       skinTypeArr: [],

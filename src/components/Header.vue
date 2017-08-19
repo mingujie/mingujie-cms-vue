@@ -6,15 +6,12 @@
         <a class="nav-link navbar-toggler sidebar-toggler" href="#" @click="sidebarToggle">&#9776;</a>
       </li>
     </ul>
-    <ul class="nav navbar-nav ml-auto">
-      <li class="nav-item d-md-down-none">
-      <dropdown size="nav" class="nav-item">
+    <ul class="nav navbar-nav ml-auto">      <dropdown size="nav" class="nav-item">
         <span slot="button">
           <img src="static/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
           <span class="d-md-down-none">admin</span>
         </span>
         <div slot="dropdown-menu"class="dropdown-menu dropdown-menu-right">
-
           <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
           <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a>
           <a class="dropdown-item" href="#"><i class="fa fa-usd"></i> Payments<span class="badge badge-default">42</span></a>
@@ -24,7 +21,7 @@
           <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
         </div>
       </dropdown>
-      </li>
+
     </ul>
 
   </navbar>

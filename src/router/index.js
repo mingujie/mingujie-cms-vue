@@ -14,7 +14,7 @@ import VideoForm from '@/views/VideoForm'
 import GameForm from '@/views/GameForm'
 import RoleForm from '@/views/RoleForm'
 import HeroForm from '@/views/HeroForm'
-
+import PictureManager from '@/views/PictureManager'
 Vue.use(Router)
 
 export default new Router({
@@ -36,6 +36,11 @@ export default new Router({
           path: 'article',
           name: 'Article',
           component: Article
+        },
+        { 
+          path: '/picture',
+          name: 'PictureManager',
+          component: PictureManager
         }
       ]
     },
