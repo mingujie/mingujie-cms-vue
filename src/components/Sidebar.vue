@@ -27,7 +27,7 @@
         </el-menu-item-group>
 
       </el-submenu>
-      <el-menu-item index="2" @click="$router.push({ path: '/picture'})"><i class="el-icon-picture"></i>图片管理</el-menu-item>
+      <el-menu-item index="2" :class=" currentPath == '/picture' ? 'is-active': '' " @click="$router.push({ path: '/picture'})"><i class="el-icon-picture"></i>图片管理</el-menu-item>
       <el-menu-item index="3"><i class="el-icon-setting"></i>会员管理</el-menu-item>
       <el-submenu  index="4">
         <template slot="title"><i class="el-icon-setting"></i>系统设置</template>
@@ -41,6 +41,20 @@
 <script>
 
 export default {
+  data () {
+    return {
+      currentPath: ''
+    }
+  },
+  route: {
+      data: function(transition){
+
+        console.log(transition)
+          transition.next({
+              currentPath: transition.to.path
+          })
+      }
+  },
   name: 'sidebar',
   methods: {
     handleClick (e) {

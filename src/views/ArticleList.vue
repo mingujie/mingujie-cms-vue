@@ -1,40 +1,84 @@
 <template>
   <div class="animated">
-   <router-view></router-view>
     <div class="row">
       <div class="col-sm-12 col-md-12">
         <div class="card">
           <div class="card-header">
-          <el-button icon="plus" @click="$router.push({ name: 'ArticleForm'})">新建文章</el-button>
+            <div class="row">
+                <div class="col-sm-9 col-md-9">  
+                  <el-button icon="plus" @click="$router.push({ name: 'ArticleForm'})">新建文章</el-button>
+                </div>
+                <div class="col-sm-3 col-md-3"> 
+                  <el-input
+                    placeholder="请选择日期"
+                    icon="search"
+                    v-model="searchVal"
+                    :on-icon-click="onSearchIconClick">
+                  </el-input>
+                </div>
+            </div>
           </div>
           <div class="card-block">
+            <div class="block">
+              <el-button type="small">全部</el-button>
+              <el-button type="small">已发表</el-button>
+              <el-button type="small">草稿</el-button>
+
+            </div>
             <el-table
               ref="multipleTable"
               :data="tableData3"
               border
               tooltip-effect="dark"
-              style="width: 100%"
+              style="width: 100%;margin-top:20px;"
               @selection-change="handleSelectionChange">
               <el-table-column
                 type="selection"
                 width="55">
               </el-table-column>
               <el-table-column
-                label="日期"
-                width="120">
-                <template scope="scope">{{ scope.row.date }}</template>
+                label="ID"
+                width="80"
+                prop="id">
               </el-table-column>
               <el-table-column
-                prop="name"
-                label="姓名"
-                width="120">
+                prop="title"
+                label="标题">
               </el-table-column>
               <el-table-column
-                prop="address"
-                label="地址"
-                show-overflow-tooltip>
+                label="发布时间" width="140">
+                <template scope="scope">{{ scope.row.publicDate }}<i class="el-icon-time el-icon--right"></i></template>
+
               </el-table-column>
-            </el-table>
+              <el-table-column
+                prop="view"
+                label="阅读量" width="80">
+              </el-table-column>
+
+              <el-table-column
+                label="操作"
+                width="160">
+                <template scope="scope">
+                  <el-button
+                    type="text"
+                    size="small">
+                    未发布
+                  </el-button>
+
+                  <el-button
+                    type="text"
+                    size="small">
+                    修改
+                  </el-button>
+
+                  <el-button
+                    type="text"
+                    size="small">
+                    移除
+                  </el-button>
+                </template>
+              </el-table-column>            
+              </el-table>
             <div style="margin-top: 20px">
               <el-button @click="toggleSelection(tableData3)">全部选择</el-button>
               <el-button @click="">删除</el-button>
@@ -55,34 +99,12 @@ export default {
   components: { quillEditor },
   data () {
     return {
+        searchVal: '',
         tableData3: [{
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-08',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-06',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-07',
-          name: '王小虎',
-          address: '上海市普区金沙江路 1518 弄'
+          id: 1111,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321
         }],
         multipleSelection: [],
       dialogPhotoVisible: false,
@@ -129,6 +151,9 @@ export default {
 
     },
     onEditorReady () {
+
+    },
+    onSearchIconClick(){
 
     },
       toggleSelection(rows) {

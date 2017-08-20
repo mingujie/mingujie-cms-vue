@@ -19,7 +19,7 @@ import PictureManager from '@/views/PictureManager'
 import BasicConfig from '@/views/system/BasicConfig'
 import Login from '@/views/pages/Login'
 import Register from '@/views/pages/Register'
-
+import Pvp from '@/views/content/pvp/index'
 
 Vue.use(Router)
 
@@ -33,11 +33,6 @@ export default new Router({
       name: 'Home',
       component: Full,
       children: [
-        {
-          path: 'dashboard',
-          name: 'Dashboard',
-          component: Dashboard
-        },
         {
           path: 'article',
           name: 'Article',
@@ -118,6 +113,10 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register,      
+    },{
+      path: '/pvp',
+      name: 'PVP',
+      component: Pvp
     }
 
   ]
