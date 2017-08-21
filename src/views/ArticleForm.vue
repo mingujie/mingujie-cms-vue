@@ -54,7 +54,8 @@
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label"></label> 
               <div class="col-md-11">
-                <el-button type="primary">保存</el-button>
+                <el-button type="primary">发表</el-button>
+                <el-button >存草稿</el-button>
                 <el-button >取消</el-button>
               </div>
             </div>

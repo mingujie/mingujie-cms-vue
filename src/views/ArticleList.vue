@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-3 col-md-3"> 
                   <el-input
-                    placeholder="请选择日期"
+                    placeholder="按标题搜索文章"
                     icon="search"
                     v-model="searchVal"
                     :on-icon-click="onSearchIconClick">
@@ -23,11 +23,10 @@
               <el-button type="small">全部</el-button>
               <el-button type="small">已发表</el-button>
               <el-button type="small">草稿</el-button>
-
             </div>
             <el-table
               ref="multipleTable"
-              :data="tableData3"
+              :data="articleData"
               border
               tooltip-effect="dark"
               style="width: 100%;margin-top:20px;"
@@ -80,8 +79,8 @@
               </el-table-column>            
               </el-table>
             <div style="margin-top: 20px">
-              <el-button @click="toggleSelection(tableData3)">全部选择</el-button>
-              <el-button @click="">删除</el-button>
+              <el-button @click="toggleSelection(articleData)" type="small">全部选择</el-button>
+              <el-button @click="" type="small">删除</el-button>
 
              </div>
 
@@ -100,34 +99,14 @@ export default {
   data () {
     return {
         searchVal: '',
-        tableData3: [{
+        articleData: [{
           id: 1111,
           title: '上海市普区金沙江路 1518 弄',
           publicDate: '2016-05-03',
           view: 12321
         }],
-        multipleSelection: [],
+      multipleSelection: [],
       dialogPhotoVisible: false,
-      form: {
-        title: '',
-        subTitle: '',
-        name: '',
-        cover: '',
-        desc: '',
-        skinType: '',
-        texiao: '',
-        price: '',
-        gold: '',
-        update: '',
-        buyAddress: '',
-        leavle: '',
-        status: '',
-        dealine: 4,
-        salesPrice: '',
-        game: '',
-        hero: '',
-        skinFrom: ''
-      },
       skinTypeArr: [],
       dealineArr: []
     }
@@ -142,7 +121,6 @@ export default {
       done()
     },
     onRadioChange (val) {
-      console.log(this.form)
     },
     onEditorBlur () {
 
@@ -153,21 +131,29 @@ export default {
     onEditorReady () {
 
     },
+    /**
+     * onSearchIconClick 搜索按钮
+     * @return {[type]} [description]
+     */
     onSearchIconClick(){
+      console.log(this.searchVal)
 
     },
-      toggleSelection(rows) {
-        if (rows) {
-          rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row);
-          });
-        } else {
-          this.$refs.multipleTable.clearSelection();
-        }
-      },
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
+    getArticleData (){
+
+    },
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.multipleTable.toggleRowSelection(row);
+        });
+      } else {
+        this.$refs.multipleTable.clearSelection();
       }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    }
 
   }
 }

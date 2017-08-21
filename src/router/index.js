@@ -65,16 +65,13 @@ export default new Router({
         {
           path: 'articlelist',
           name: 'ArticleList',
-          component: ArticleList,
-          children: [
-            {
-              path: 'articleform',
-              name: 'ArticleForm',
-              component: ArticleForm
-            }
-          ]
+          component: ArticleList,    
         },
-
+        {
+          path: 'articleform',
+          name: 'ArticleForm',
+          component: ArticleForm
+        },
         {
           path: '/content/skinform',
           name: 'SkinForm',
