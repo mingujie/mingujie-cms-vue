@@ -69,7 +69,7 @@
               <label for="text-input" class="col-md-1 form-control-label"></label> 
               <div class="col-md-11">
                 <el-button type="primary" @click="submitForm('form')">发表</el-button>
-                <el-button >存草稿</el-button>
+                <el-button @click="saveFormOutline">存草稿</el-button>
                 <el-button >取消</el-button>
               </div>
             </div>
@@ -132,7 +132,7 @@ export default {
         title: '',
         subTitle: '',
         content: '',
-        cover: '',
+        cover: '1111',
         desc: ''
       },
       rules: {
@@ -153,11 +153,15 @@ export default {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             //alert('submit!');
+            console.log('内容提交',this.form)
           } else {
             console.log('error submit!!');
             return false;
           }
         });
+      },
+      saveFormOutline(){
+        console.log('保存草稿')
       },
     handleClose (done) {
       done()
