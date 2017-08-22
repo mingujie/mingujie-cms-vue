@@ -8,53 +8,67 @@
           </div>
 
           <div class="card-block">
-            <el-form ref="form" :model="form" label-width="80px" id="form">
+            <el-form ref="form" :model="form" :rules="rules" label-width="80px" id="form">
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">标题</label> 
               <div class="col-md-11">
+                  <el-form-item prop="title" class="form-item">
                   <el-input placeholder="标题最多不超过60个字符" v-model="form.title">
                     <template slot="append"><span>0</span>/60</template>
                   </el-input>
+                  </el-form-item>
               </div>
             </div>
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">副标题</label> 
               <div class="col-md-11">
-                  <el-input placeholder="标题最多不超过60个字符" v-model="form.subTitle">
+              <el-form-item prop="subTitle" class="form-item">
+                  <el-input placeholder="选填内容" v-model="form.subTitle">
                     <template slot="append"><span>0</span>/60</template>
                   </el-input>
+              </el-form-item>
               </div>
             </div>
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">正文</label> 
               <div class="col-md-11">
-              <quill-editor :rows="8" ref="myTextEditor"
-                            v-model="editor.content"
-                            :config="editor.options"
-                            @blur="onEditorBlur($event)"
-                            @focus="onEditorFocus($event)"
-                            @ready="onEditorReady($event)">
-              </quill-editor>
+              <el-form-item prop="content" class="form-item">
+                <quill-editor :rows="8" ref="myTextEditor"
+                      v-model="form.content"
+                      :config="editor.options"
+                      @blur="onEditorBlur($event)"
+                      @focus="onEditorFocus($event)"
+                      @ready="onEditorReady($event)">
+                </quill-editor>
+              </el-form-item>
               </div>
             </div>
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">封面</label> 
               <div class="col-md-11">
-                <el-button size="small">从正文选择</el-button>
-                <el-button size="small" @click="dialogPhotoVisible = true">从图片库选择</el-button>
+                <label for="prependedInput" class="form-control-label">最少一张封面，文章阅读量嗖嗖的</label>
+                <div class="block">
+                <el-form-item prop="cover" class="form-item">
+                  <el-button size="small">从正文选择</el-button>
+                  <el-button size="small" @click="dialogPhotoVisible = true">从图片库选择</el-button>
+                </el-form-item>
+                </div>
               </div>
             </div>
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">摘要</label> 
               <div class="col-md-11">
                 <label for="prependedInput" class="form-control-label">选填，如果不填写会默认抓取正文前54个字</label>
+                <el-form-item prop="desc" class="form-item">
+
                 <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
+                </el-form-item>
               </div>
             </div>
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label"></label> 
               <div class="col-md-11">
-                <el-button type="primary">发表</el-button>
+                <el-button type="primary" @click="submitForm('form')">发表</el-button>
                 <el-button >存草稿</el-button>
                 <el-button >取消</el-button>
               </div>
@@ -111,20 +125,40 @@ export default {
       dialogPhotoVisible: false,
       editor: {
         options: {
-
         },
-        content: '你好'
+        content: ''
       },
       form: {
         title: '',
         subTitle: '',
-        name: '',
+        content: '',
         cover: '',
         desc: ''
+      },
+      rules: {
+          title: [
+            { required: true, message: '麻蛋，标题都能忘记填！', trigger: 'blur' }          
+          ],
+          content: [
+          { required: true, message: '内容，内容，内容！！！重要的事情说三遍', trigger: 'change'}  
+          ],
+          cover: [
+          { required: true, message: '封面也不能少哟', trigger: 'blur' }  
+          ]
       }
     }
   },
   methods: {
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            //alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
     handleClose (done) {
       done()
     },
@@ -132,7 +166,7 @@ export default {
       console.log(this.form)
     },
     onEditorBlur () {
-
+      console.log(11213)
     },
     onEditorFocus () {
 
@@ -149,5 +183,8 @@ export default {
   }
 .ql-container.ql-snow {
   height: 360px !important;
+}
+.form-item .el-form-item__content {
+  margin: 0 !important;
 }
 </style>

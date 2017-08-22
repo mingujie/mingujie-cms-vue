@@ -6,7 +6,7 @@ import router from './router'
 import {Input, Button, Pagination, Form, Radio,Option, Dialog, 
 	Menu, Submenu, MenuItem, MenuItemGroup, Select,
 	DatePicker, Transfer, Cascader, Card, Upload, Table,
-	TableColumn} from 'element-ui'
+	TableColumn, FormItem} from 'element-ui'
 	
 Vue.component(Input.name, Input)
 Vue.component(Pagination.name, Pagination)
@@ -27,7 +27,7 @@ Vue.component(Card.name, Card)
 Vue.component(Upload.name, Upload)
 Vue.component(Table.name, Table)
 Vue.component(TableColumn.name, TableColumn)
-
+Vue.component(FormItem.name, FormItem)
 
 /* eslint-disable no-new */
 new Vue({
