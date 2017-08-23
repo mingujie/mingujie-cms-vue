@@ -8,10 +8,10 @@
           </div>
 
           <div class="card-block">
-            <el-form ref="form" :model="form" label-width="80px" id="form">
+            <el-form ref="form" :model="form" :rules="rules" label-width="80px" id="form">
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">标题</label> 
-              <div class="col-md-11">
+              <div class="col-md-11" prop="name">
                   <el-input placeholder="标题最多不超过60个字符" v-model="form.title">
                     <template slot="append"><span>0</span>/60</template>
                   </el-input>
@@ -54,7 +54,7 @@
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label"></label> 
               <div class="col-md-11">
-                <el-button type="primary">发表</el-button>
+                <el-button type="primary" @click="submitForm('form')">发表</el-button>
                 <el-button >存草稿</el-button>
                 <el-button >取消</el-button>
               </div>
@@ -113,7 +113,7 @@ export default {
         options: {
 
         },
-        content: '你好'
+        content: ''
       },
       form: {
         title: '',
@@ -121,10 +121,26 @@ export default {
         name: '',
         cover: '',
         desc: ''
+      },
+      rules: {
+        title: [
+          { required: true, message: '请输入标题', trigger: 'blur' },
+          { min: 6, max: 60, message: '长度在 6 到 60 个字符', trigger: 'blur' }
+        ]
       }
     }
   },
   methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!');
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
     handleClose (done) {
       done()
     },
