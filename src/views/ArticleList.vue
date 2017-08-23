@@ -63,7 +63,7 @@
                 <template scope="scope">
                   <el-button
                     type="text"
-                    size="small">
+                    size="small" @click="modifyArticle">
                     修改
                   </el-button>
                   <el-button
@@ -131,6 +131,10 @@ export default {
     },
     onEditorReady () {
 
+    },
+    modifyArticle (aid){
+      console.log(this)
+      this.$router.push({ name: 'modifyArticle', params: { aid: 123 }})
     },
     removeRow (index, rows){
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {

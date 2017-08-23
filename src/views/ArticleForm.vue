@@ -4,7 +4,7 @@
       <div class="col-sm-12 col-md-12">
         <div class="card">
           <div class="card-header">
-            <strong>新建图文消息</strong> <small></small>
+            <strong>{{pageTitle}}</strong> <small></small>
           </div>
 
           <div class="card-block">
@@ -70,7 +70,7 @@
               <div class="col-md-11">
                 <el-button type="primary" @click="submitForm('form')">发表</el-button>
                 <el-button @click="saveFormOutline">存草稿</el-button>
-                <el-button >取消</el-button>
+                <el-button @click="onCancelHandle">取消</el-button>
               </div>
             </div>
             </el-form>
@@ -122,12 +122,14 @@ export default {
   components: { quillEditor },
   data () {
     return {
+      isModifyStatus: false,
       dialogPhotoVisible: false,
       editor: {
         options: {
         },
         content: ''
       },
+      pageTitle: '',
       form: {
         title: '',
         subTitle: '',
@@ -148,8 +150,57 @@ export default {
       }
     }
   },
+  created (){
+    let $route = this.$route;
+    let isModifyStatus = this.isModifyStatusHandle($route);
+    //根据状态更新视图
+    if(isModifyStatus) {
+      this.pageTitle = '修改图文信息';
+      this.getArticleData($route.params.aid)
+    }else {
+      this.pageTitle = '新建图文信息';
+    }
+  },
   methods: {
-
+    onCancelHandle (){
+      this.$router.push({ name: 'ArticleList'})
+    },
+    getArticleData (aid){
+      let data =  {
+        title: 'Nihaoadasdad',
+        subTitle: 'fffff',
+        content: '32132131',
+        cover: '1111',
+        desc: 'dddsdada'
+      }
+      this.renderArticleData(data)
+    },
+    /**
+     * renderArticleData 在组件中渲染数据
+     * @param  { Object } data 表单数据
+     * @return {[type]}      [description]
+     */
+    renderArticleData(data){
+      this.form = data;
+    },
+    /**
+     * isModifyStatusHandle 检查是否属于编辑状态
+     * @param  {[type]}  $route 路由对象
+     * @return {Boolean}      编辑中返回true，否则false
+     */
+      isModifyStatusHandle ($route){
+        var params = $route.params;
+        if(params.aid) {
+         return true;
+        }else {
+          return false;
+        }
+      },
+      /**
+       * submitForm 校验表单并提交
+       * @param  { String } formName 表单名称
+       * @return { undefined }         undefined
+       */
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {

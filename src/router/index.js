@@ -73,6 +73,11 @@ export default new Router({
           component: ArticleForm
         },
         {
+          path: 'articleform/:aid',
+          name: 'modifyArticle',
+          component: ArticleForm
+        },
+        {
           path: '/content/skinform',
           name: 'SkinForm',
           component: SkinForm
