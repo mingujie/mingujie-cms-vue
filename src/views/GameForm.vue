@@ -45,7 +45,7 @@
                 <el-input type="textarea" :rows="4" v-model="form.desc"></el-input>
               </div>
             </div>
-            <div class="form-group row">
+<!--             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">职业选择</label> 
               <div class="col-md-11">
                 <el-transfer
@@ -56,8 +56,8 @@
                   v-model="form.roleDataSelected"
                   :data="form.roleData">
                 </el-transfer>               
-          </div>
-            </div>
+              </div>
+            </div> -->
 
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label"></label> 

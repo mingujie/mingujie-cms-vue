@@ -5,7 +5,7 @@
       <el-submenu  index="1">
         <template slot="title"><i class="el-icon-document"></i>内容管理</template>
             <el-submenu index="1-1-1">
-            <template slot="title">游戏属性</template>
+            <template slot="title">游戏列表</template>
             <el-menu-item index="1-1-2" @click="$router.push({ path: '/content/gameform'})">游戏</el-menu-item>
           </el-submenu>
                 <el-menu-item-group>

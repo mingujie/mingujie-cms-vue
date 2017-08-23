@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-sm-3 col-md-3"> 
                   <el-input
-                    placeholder="按标题搜索文章"
+                    placeholder="按标题搜索"
                     icon="search"
                     v-model="searchVal"
                     :on-icon-click="onSearchIconClick">
@@ -53,7 +53,10 @@
                 prop="view"
                 label="阅读量" width="80">
               </el-table-column>
-
+              <el-table-column
+                prop="status"
+                label="状态" width="80">
+              </el-table-column>
               <el-table-column
                 label="操作"
                 width="160">
@@ -61,18 +64,11 @@
                   <el-button
                     type="text"
                     size="small">
-                    未发布
-                  </el-button>
-
-                  <el-button
-                    type="text"
-                    size="small">
                     修改
                   </el-button>
-
                   <el-button
                     type="text"
-                    size="small">
+                    size="small" @click="removeRow(scope.$index, articleData)">
                     移除
                   </el-button>
                 </template>
@@ -80,10 +76,8 @@
               </el-table>
             <div style="margin-top: 20px">
               <el-button @click="toggleSelection(articleData)" type="small">全部选择</el-button>
-              <el-button @click="" type="small">删除</el-button>
-
+              <el-button @click="removeRow(scope.$index, articleData)" type="small">删除</el-button>
              </div>
-
           </div>
         </div>
       </div><!--/.col-->
@@ -103,7 +97,14 @@ export default {
           id: 1111,
           title: '上海市普区金沙江路 1518 弄',
           publicDate: '2016-05-03',
-          view: 12321
+          view: 12321,
+          status: '草稿'
+        },{
+          id: 1111,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
         }],
       multipleSelection: [],
       dialogPhotoVisible: false,
@@ -130,6 +131,25 @@ export default {
     },
     onEditorReady () {
 
+    },
+    removeRow (index, rows){
+      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        rows.splice(index, 1);
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });          
+      });
+      
     },
     /**
      * onSearchIconClick 搜索按钮
