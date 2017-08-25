@@ -47,7 +47,6 @@
               <el-table-column
                 label="发布时间" width="140">
                 <template scope="scope">{{ scope.row.publicDate }}<i class="el-icon-time el-icon--right"></i></template>
-
               </el-table-column>
               <el-table-column
                 prop="view"
@@ -226,8 +225,12 @@ console.log('草稿')
         this.$refs.multipleTable.clearSelection();
       }
     },
+    /**
+     * handleSelectionChange 选项被选择时触发
+     * @param  { Array } val  被选择中行所对应的数据
+     * @return {[type]}     [description]
+     */
     handleSelectionChange(val) {
-      console.log(val)
       this.multipleSelection = val;
     }
 
