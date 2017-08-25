@@ -76,7 +76,7 @@
               </el-table>
             <div style="margin-top: 20px">
               <el-button @click="toggleSelection(articleData)" type="small">全部选择</el-button>
-              <el-button @click="removeRow(scope.$index, articleData)" type="small">删除</el-button>
+              <el-button @click="removeClickHandle(multipleSelection)" type="small">删除</el-button>
              </div>
           </div>
         </div>
@@ -100,7 +100,7 @@ export default {
           view: 12321,
           status: '草稿'
         },{
-          id: 1111,
+          id: 1222,
           title: '上海市普区金沙江路 1518 弄',
           publicDate: '2016-05-03',
           view: 12321,
@@ -132,28 +132,77 @@ export default {
     onEditorReady () {
 
     },
+
+    /**
+     * [emoveClickHandle 底部删除按钮点击事件
+     * @param  { Array } rows 选择选项的数组
+     * @return {[type]}      [description]
+     */
+    removeClickHandle (rows){
+      let self = this;
+      if(rows.length){         
+          self.removeRowsCofirm( function(){
+
+            rows.forEach(row => {
+              self.removeArticleRows(row)
+            });
+          })   
+      }
+    },
+    /**
+     * getArticleRowIndex 返回row对象在数据里的Index
+     * @param  { Object } row 所选择对象
+     * @return { Number }     所选对象在数据里的index值
+     */
+    removeArticleRows (row){
+      this.articleData.forEach((data,index) => {
+        if(data.id === row.id) {
+          console.log(index, this.articleData)
+          this.articleData.splice(index,  1);
+        }
+      });
+    },
+    /**
+     * modifyArticle 根据文章ID编辑文章
+     * @param  { String } aid 文章ID
+     * @return {[type]}     [description]
+     */
     modifyArticle (aid){
-      console.log(this)
       this.$router.push({ name: 'modifyArticle', params: { aid: 123 }})
     },
+    /**
+     * removeRow 根据index删除行
+     * @param  { Number } index 表格index值
+     * @param  { Object } rows  当前表格对象
+     * @return {[type]}       [description]
+     */
     removeRow (index, rows){
+      this.removeRowsCofirm( function(){
+        rows.splice(index, 1);
+      })
+    },
+    /**
+     * removeRowsCofirm 删除提示
+     * @param  {Function} callback 回调函数
+     * @return {[type]}            [description]
+     */
+    removeRowsCofirm (callback){
       this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        rows.splice(index, 1);
+        callback()
         this.$message({
           type: 'success',
           message: '删除成功!'
         });
       }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });          
+        // this.$message({
+        //   type: 'info',
+        //   message: '已取消删除'
+        // });          
       });
-      
     },
     /**
      * onSearchIconClick 搜索按钮
@@ -161,11 +210,15 @@ export default {
      */
     onSearchIconClick(){
       console.log(this.searchVal)
-
     },
     getArticleData (){
 
     },
+    /**
+     * toggleSelection 表格选项选择逻辑
+     * @param  { Array } rows 文章数据
+     * @return {[type]}      [description]
+     */
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
@@ -176,6 +229,7 @@ export default {
       }
     },
     handleSelectionChange(val) {
+      console.log(val)
       this.multipleSelection = val;
     }
 
