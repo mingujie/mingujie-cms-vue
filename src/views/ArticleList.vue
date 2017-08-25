@@ -73,9 +73,16 @@
                 </template>
               </el-table-column>            
               </el-table>
-            <div style="margin-top: 20px">
+            <div class="block" style="margin-top: 20px">
               <el-button @click="toggleSelection(articleData)" type="small">全部选择</el-button>
               <el-button @click="removeClickHandle(multipleSelection)" type="small">删除</el-button>
+                <el-pagination v-if="pagination.total" class="float-right"
+    layout="prev, pager, next"
+    @current-change="paginationChage"
+    :total="pagination.total"
+    :current-page="pagination.page"
+    :page-size="pagination.size">
+  </el-pagination>
              </div>
           </div>
         </div>
@@ -91,30 +98,22 @@ export default {
   components: { quillEditor },
   data () {
     return {
-        searchVal: '',
-        articleData: [{
-          id: 1111,
-          title: '上海市普区金沙江路 1518 弄',
-          publicDate: '2016-05-03',
-          view: 12321,
-          status: '草稿'
-        },{
-          id: 1222,
-          title: '上海市普区金沙江路 1518 弄',
-          publicDate: '2016-05-03',
-          view: 12321,
-          status: '已发表'
-        }],
+      searchVal: '',
+      articleData: [],
       multipleSelection: [],
       dialogPhotoVisible: false,
       skinTypeArr: [],
-      dealineArr: []
+      dealineArr: [],
+      pagination: {
+        total: 0,
+        page: 1,
+        size: 10
+      }
     }
   },
   created: function () {
-    this.skinTypeArr = [{ value: '1', label: '普通' }, { value: '2', label: '史诗' }];
-    this.dealineArr = [{ value: 1, label: '1天' }, { value: 2, label: '3天' }, { value: 3, label: '一周' }, { value: 4, label: '永久' }];
-    this.texiaoArr =  [{ value: 0, label: '无' }, { value: 1, label: '有'}, { value: 2, label: '部分' },{ value: 3, label: '回城' }];
+    this.getArticleData();
+    this.pagination.total = this.articleData.length;
   },
   methods: {
     /**
@@ -209,7 +208,139 @@ console.log('草稿')
       console.log(this.searchVal)
     },
     getArticleData (){
-
+      this.articleData =  [{
+          id: 1111,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '草稿'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        },{
+          id: 1222,
+          title: '上海市普区金沙江路 1518 弄',
+          publicDate: '2016-05-03',
+          view: 12321,
+          status: '已发表'
+        }]
     },
     /**
      * toggleSelection 表格选项选择逻辑
@@ -232,6 +363,9 @@ console.log('草稿')
      */
     handleSelectionChange(val) {
       this.multipleSelection = val;
+    },
+    paginationChage (currentPage){
+      console.log(currentPage)
     }
 
   }
