@@ -20,9 +20,9 @@
           </div>
           <div class="card-block">
             <div class="block">
-              <el-button type="small">全部</el-button>
-              <el-button type="small">已发表</el-button>
-              <el-button type="small">草稿</el-button>
+              <el-button type="small" @click="selectAllHandle">全部</el-button>
+              <el-button type="small" @click="selectPublicHandle">已发表</el-button>
+              <el-button type="small" @click="selectDraftHandle">草稿</el-button>
             </div>
             <el-table
               ref="multipleTable"
@@ -118,21 +118,19 @@ export default {
     this.texiaoArr =  [{ value: 0, label: '无' }, { value: 1, label: '有'}, { value: 2, label: '部分' },{ value: 3, label: '回城' }];
   },
   methods: {
-    handleClose (done) {
-      done()
+    /**
+     * [selectAllHandle description]
+     * @return {[type]} [description]
+     */
+    selectAllHandle (){
+      console.log('全部')
     },
-    onRadioChange (val) {
+    selectPublicHandle (){
+      console.log('已发表')
     },
-    onEditorBlur () {
-
+    selectDraftHandle (){
+console.log('草稿')
     },
-    onEditorFocus () {
-
-    },
-    onEditorReady () {
-
-    },
-
     /**
      * [emoveClickHandle 底部删除按钮点击事件
      * @param  { Array } rows 选择选项的数组
