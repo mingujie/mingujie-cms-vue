@@ -6,7 +6,7 @@
           <div class="card-header">
             <div class="row">
                 <div class="col-sm-9 col-md-9">  
-                  <el-button icon="plus" @click="$router.push({ name: 'ArticleForm'})">新建文章</el-button>
+                  <el-button icon="plus" @click="$router.push({ name: 'ArticleForm'})">{{viewConfig.createContentBtnText}}</el-button>
                 </div>
                 <div class="col-sm-3 col-md-3"> 
                   <el-input
@@ -93,11 +93,18 @@
 
 <script>
 import { quillEditor } from 'vue-quill-editor'
+import { getViewConfig } from '../util'
 export default {
-  name: 'articleForm',
+  name: 'articleList',
   components: { quillEditor },
   data () {
     return {
+      viewConfig: {
+        pageTitle: '文章列表',
+        createContentBtnText: '创建文章',
+        routerName: 'article',
+        interfaceName: ''
+      },
       searchVal: '',
       articleData: [],
       multipleSelection: [],
@@ -112,10 +119,31 @@ export default {
     }
   },
   created: function () {
+    let $route = this.$route
+    this.initViewConfig($route)
+
     this.getArticleData();
     this.pagination.total = this.articleData.length;
   },
+  watch:{
+    $route (){
+      let $route = this.$route
+
+      this.initViewConfig($route)
+    }
+  },
   methods: {
+    /**
+     * initViewConfig 根据路由名称初始化视图配置
+     * @param  { Object } $route 路由对象
+     * @return {[type]}        [description]
+     */
+    initViewConfig ($route){
+      let routeName = $route.name
+      if(routeName){
+         this.viewConfig = getViewConfig(routeName);
+      }
+    },
     /**
      * [selectAllHandle description]
      * @return {[type]} [description]

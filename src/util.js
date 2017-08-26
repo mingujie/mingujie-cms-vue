@@ -1,34 +1,18 @@
+import viewsConfig from './viewsConfig'
 
-const config = {
-	pageTitle: '',
-	createContentBtnText: '',
-	interfaceName: '',
-	routerName: ''
-}
+function getViewConfig(routeName){
+	let rName = routeName,
+		viewsConfigLen = viewsConfig.length;
 
-const = [{
-		pageTitle: '文章',
-		createContentBtnText: '创建文章',
-		interfaceName: '',
-		createFormtBtn:{
-			text: '创建文章',
-			routerName: 'ArticleForm'
-		} 
-	},{
-		pageTitle: '皮肤',
-		interfaceName: '',
-		createFormtBtn:{
-			text: '创建皮肤',
-			routerName: 'SkinForm'
-		} 
-	}]
-
-
-function componentInit(routerName){
-	let rName = routerName;
-	switch(rName){
-		case '':
-		break;
+	for(var i=0; i < viewsConfigLen; i++) {
+		if(viewsConfig[i]['routeName'] === rName){
+			return viewsConfig[i]
+			break
+		}
 	}
 }
 
+
+export {
+	getViewConfig
+}

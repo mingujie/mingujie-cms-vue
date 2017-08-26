@@ -64,7 +64,7 @@ export default new Router({
       children: [
         {
           path: 'articlelist',
-          name: 'ArticleList',
+          name: 'article',
           component: ArticleList,    
         },
         {
@@ -79,7 +79,7 @@ export default new Router({
         },
         {
           path: 'skinlist',
-          name: 'ArticleList',
+          name: 'skin',
           component: ArticleList,    
         },
         {
