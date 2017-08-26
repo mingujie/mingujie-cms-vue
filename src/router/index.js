@@ -78,7 +78,17 @@ export default new Router({
           component: ArticleForm
         },
         {
-          path: '/content/skinform',
+          path: 'skinlist',
+          name: 'ArticleList',
+          component: ArticleList,    
+        },
+        {
+          path: 'skinform',
+          name: 'SkinForm',
+          component: SkinForm
+        },
+        {
+          path: 'skinform/:sid',
           name: 'SkinForm',
           component: SkinForm
         },

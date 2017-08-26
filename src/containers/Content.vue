@@ -48,7 +48,6 @@ export default {
     width: 100%;
     top: 55px;
     bottom: 0px;
-    z-index: 100;
 }
 .aside-menu-fixed.aside-menu-hidden .main {
     width: auto;
