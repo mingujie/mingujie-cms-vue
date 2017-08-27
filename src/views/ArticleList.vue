@@ -6,7 +6,7 @@
           <div class="card-header">
             <div class="row">
                 <div class="col-sm-9 col-md-9">  
-                  <el-button icon="plus" @click="$router.push({ name: 'ArticleForm'})">{{viewConfig.createContentBtnText}}</el-button>
+                  <el-button icon="plus" @click="$router.push({ name: viewConfig.createContentRouteName})">{{viewConfig.createContentBtnText}}</el-button>
                 </div>
                 <div class="col-sm-3 col-md-3"> 
                   <el-input

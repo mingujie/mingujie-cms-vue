@@ -1,6 +1,7 @@
 const viewConfig = [{
 		pageTitle: '文章列表',
 		createContentBtnText: '创建文章',
+		createContentRouteName: 'ArticleForm',
 		routeName: 'article',
 		interfaceName: '',
 		createFormtBtn:{
@@ -12,6 +13,7 @@ const viewConfig = [{
 		routeName: 'skin',
 		interfaceName: '',
 		createContentBtnText: '创建皮肤',
+		createContentRouteName: 'SkinForm',
 		createFormtBtn:{
 			text: '创建皮肤',
 			routeName: 'SkinForm'
@@ -21,6 +23,7 @@ const viewConfig = [{
 		routeName: 'photo',
 		interfaceName: '',
 		createContentBtnText: '创建图片',
+		createContentRouteName: 'PhotoForm',
 		createFormtBtn:{
 			text: '创建图片',
 			routeName: 'PhotoForm'
@@ -30,6 +33,7 @@ const viewConfig = [{
 		routeName: 'video',
 		interfaceName: '',
 		createContentBtnText: '创建视频',
+		createContentRouteName: 'VideoForm',
 		createFormtBtn:{
 			text: '创建皮肤',
 			routeName: 'VideoForm'
@@ -39,6 +43,7 @@ const viewConfig = [{
 		routeName: 'hero',
 		interfaceName: '',
 		createContentBtnText: '创建英雄',
+		createContentRouteName: 'HeroForm',
 		createFormtBtn:{
 			text: '创建英雄',
 			routeName: 'HeroForm'
@@ -48,6 +53,7 @@ const viewConfig = [{
 		routeName: 'role',
 		interfaceName: '',
 		createContentBtnText: '创建职业',
+		createContentRouteName: 'RoleForm',
 		createFormtBtn:{
 			text: '创建职业',
 			routeName: 'RoleForm'

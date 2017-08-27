@@ -18,10 +18,10 @@
             <template slot="title">王者荣耀</template>
             <el-menu-item index="1-4-2" @click="$router.push({ path: '/content/articlelist'})">新闻</el-menu-item>
             <el-menu-item index="1-4-3" @click="$router.push({ path: '/content/skinlist'})">皮肤</el-menu-item>
-            <el-menu-item index="1-4-4" @click="$router.push({ path: '/content/videoform'})">视频</el-menu-item>
-            <el-menu-item index="1-4-5" @click="$router.push({ path: '/content/photoform'})">图片</el-menu-item>
-            <el-menu-item index="1-4-6" @click="$router.push({ path: '/content/heroform'})">英雄</el-menu-item>
-             <el-menu-item index="1-4-7" @click="$router.push({ path: '/content/roleform'})">职业</el-menu-item>
+            <el-menu-item index="1-4-4" @click="$router.push({ path: '/content/videolist'})">视频</el-menu-item>
+            <el-menu-item index="1-4-5" @click="$router.push({ path: '/content/photolist'})">图片</el-menu-item>
+            <el-menu-item index="1-4-6" @click="$router.push({ path: '/content/herolist'})">英雄</el-menu-item>
+             <el-menu-item index="1-4-7" @click="$router.push({ path: '/content/rolelist'})">职业</el-menu-item>
 
           </el-submenu>
         </el-menu-item-group>

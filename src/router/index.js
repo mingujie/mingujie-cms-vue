@@ -89,32 +89,76 @@ export default new Router({
         },
         {
           path: 'skinform/:sid',
-          name: 'SkinForm',
+          name: 'modifySkin',
           component: SkinForm
         },
+        //视频路由
         {
-          path: '/content/videoform',
+          path: 'videolist',
+          name: 'video',
+          component: ArticleList
+        },
+        {
+          path: 'videoform',
           name: 'VideoForm',
           component: VideoForm
         },
         {
-          path: '/content/photoform',
+          path: 'videoform/:vid',
+          name: 'modifyVideo',
+          component: VideoForm
+        },
+        //图片路由
+        {
+          path: '/photolist',
+          name: 'photo',
+          component: ArticleList
+        },
+        {
+          path: 'photoform',
           name: 'PhotoForm',
           component: PhotoForm
         },
+        {
+          path: 'photoform/:pid',
+          name: 'modifyPhoto',
+          component: PhotoForm
+        },
+        //游戏路由
         {
           path: '/content/gameform',
           name: 'GameForm',
           component: GameForm
         },
+        //职业路由
         {
-          path: '/content/roleform',
+          path: '/rolelist',
+          name: 'role',
+          component: ArticleList
+        },
+        {
+          path: 'roleform',
           name: 'RoleForm',
           component: RoleForm
         },
         {
-          path: '/content/heroform',
+          path: 'roleform/:rid',
+          name: 'modifyRole',
+          component: RoleForm
+        },
+
+        //英雄路由
+        {
+          path: '/herolist',
+          name: 'hero',
+          component: ArticleList
+        }, {
+          path: '/heroform',
           name: 'HeroForm',
+          component: HeroForm
+        }, {
+          path: '/heroform/:hid',
+          name: 'modifyHero',
           component: HeroForm
         }]
     },{
