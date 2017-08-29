@@ -1,5 +1,5 @@
 <template>
-  <div class="animated">
+  <div class="animated fadeIn">
     <div class="row">
       <div class="col-sm-12 col-md-12">
         <div class="card">
@@ -120,10 +120,10 @@ export default {
   },
   created: function () {
     let $route = this.$route
-    this.initViewConfig($route)
+    this.initViewConfig($route) //初始化视图
 
-    this.getArticleData();
-    this.pagination.total = this.articleData.length;
+    this.getArticleData();//获取文章列表数据
+    this.pagination.total = this.articleData.length;//获取数据的length
   },
   watch:{
     $route (){

@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
   <div class="sidebar-nav">
-    <el-menu default-active="1" theme="dark" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+    <el-menu default-active="1-1-2" unique-opened="true" router="true" theme="dark" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
       <el-submenu  index="1">
         <template slot="title"><i class="el-icon-document"></i>内容管理</template>
             <el-submenu index="1-1-1">
