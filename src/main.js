@@ -1,8 +1,10 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App'
 import router from './router'
+import store from './store'
 import {Input, Button, Pagination, Form, Radio,Option, Dialog, 
 	Menu, Submenu, MenuItem, MenuItemGroup, Select,
 	DatePicker, Transfer, Cascader, Card, Upload, Table,
@@ -30,13 +32,14 @@ Vue.component(TableColumn.name, TableColumn)
 Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)
 Vue.component(MessageBox.name, MessageBox)
-
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
-/* eslint-disable no-new */
+
+
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 })

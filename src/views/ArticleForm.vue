@@ -1,6 +1,5 @@
 <template>
-  <div class="animated">
-    <div class="row">
+<div class="animated fadeIn">    <div class="row">
       <div class="col-sm-12 col-md-12">
         <div class="card">
           <div class="card-header">

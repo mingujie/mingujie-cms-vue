@@ -110,7 +110,7 @@ export default new Router({
         },
         //图片路由
         {
-          path: '/photolist',
+          path: 'photolist',
           name: 'photo',
           component: ArticleList
         },
@@ -132,7 +132,7 @@ export default new Router({
         },
         //职业路由
         {
-          path: '/rolelist',
+          path: 'rolelist',
           name: 'role',
           component: ArticleList
         },
@@ -149,15 +149,15 @@ export default new Router({
 
         //英雄路由
         {
-          path: '/herolist',
+          path: 'herolist',
           name: 'hero',
           component: ArticleList
         }, {
-          path: '/heroform',
+          path: 'heroform',
           name: 'HeroForm',
           component: HeroForm
         }, {
-          path: '/heroform/:hid',
+          path: 'heroform/:hid',
           name: 'modifyHero',
           component: HeroForm
         }]

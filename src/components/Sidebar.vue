@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
   <div class="sidebar-nav">
-    <el-menu :default-active="$route.path" theme="dark" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+    <el-menu default-active="navMenuActive" :unique-opened="true" theme="dark" class="el-menu-vertical-demo" @open="handleOpen" @select="selectNavMenu" @close="handleClose">
       <el-submenu  index="1">
         <template slot="title"><i class="el-icon-document"></i>内容管理</template>
             <el-submenu index="1-1-1">
@@ -34,7 +34,6 @@
           <el-menu-item index="4-1" @click="$router.push({ path: '/system/basic-config'})">基本设置</el-menu-item>
         </el-submenu>
       </el-menu>
-    </el-menu>
     </div>
   </div>
 </template>
@@ -43,7 +42,8 @@
 export default {
   data () {
     return {
-      currentPath: ''
+      currentPath: '',
+      navMenuActive: '1-1-2'
     }
   },
   route: {
@@ -56,6 +56,10 @@ export default {
       }
   },
   name: 'sidebar',
+  created (){
+   // this.navMenuActive = this.$store.state.sidebar.navMenuActive
+    console.log(this.navMenuActive)
+  },
   methods: {
     handleClick (e) {
       e.preventDefault()
@@ -66,6 +70,10 @@ export default {
     },
     handleClose () {
 
+    },
+    selectNavMenu (index, indexPath) {
+      console.log(index, indexPath)
+      this.$store.dispatch('setSidebarNavMenuActive', {navMenuActive: index})
     }
   }
 }
