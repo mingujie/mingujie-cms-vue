@@ -18,13 +18,6 @@ export default {
 
     }
   },
-  route: {
-    data: function(transition){
-      transition.next({
-          currentPath: transition.to.path
-      })
-    }
-  },
   computed: {
     ...mapGetters([
       'permission_routers'
@@ -32,7 +25,7 @@ export default {
   },
   
   created (){
-    console.log('路由白名单', this.permission_routers)
+
   },
   methods: {
 

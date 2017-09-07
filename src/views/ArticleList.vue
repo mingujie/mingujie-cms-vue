@@ -139,7 +139,7 @@ export default {
      * @return {[type]}        [description]
      */
     initViewConfig ($route){
-      let routeName = $route.name
+      let routeName = $route.routerName
       if(routeName){
          this.viewConfig = getViewConfig(routeName);
       }

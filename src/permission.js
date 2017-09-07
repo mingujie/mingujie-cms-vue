@@ -16,6 +16,7 @@ router.beforeEach((to, from, next) => {
       if (store.getters.roles.length === 0) { //如果路由名单为空，重新获取路由名单
         store.dispatch('GetInfo').then(res => {
           const roles = res.data.role
+          console.log('获取用户信息', roles)
           store.dispatch('GenerateRoutes', { roles }).then(() => {
             router.addRoutes(store.getters.addRouters)
             next({ ...to })
