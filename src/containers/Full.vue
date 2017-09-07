@@ -7,7 +7,7 @@
       <div class="product-main">
         <breadcrumb :list="list"/>
         <div class="container-fluid">
-          <router-view></router-view>
+          <router-view :key="key"></router-view>
         </div>
       </div>
       </main>
@@ -37,6 +37,9 @@ export default {
 
     list () {
       return this.$route.matched
+    },
+    key() {
+      return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
     }
   }
 }

@@ -6,7 +6,7 @@ import Page404 from '@/views/pages/Page404'
 import Login from '@/views/pages/Login'
 import Dashboard from '@/views/Dashboard'
 import BasicConfig from '@/views/system/BasicConfig'
-import Welcome from '@/views/Welcome'
+import DevLog from '@/views/log/DevLog'
 
 Vue.use(Router);
 
@@ -24,8 +24,16 @@ export const constantRouterMap = [
     path: '/',
     component: Full,
     name: 'Home',
+    redirect: '/log/dev',
+    hidden: true
+  },
+  {
+    path: '/log',
+    component: Full,
+    name: 'log',
+    redirect: '/dev',
     hidden: true,
-    children: [{ path: '/welcome', component: Welcome, name: 'welcome' }]
+    children: [{ path: 'dev', component: DevLog, name: 'devlog' }]
   }
 ]
 
