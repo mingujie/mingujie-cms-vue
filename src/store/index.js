@@ -1,27 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import app from './modules/app' //app模块
+import app from './modules/app'
+import user from './modules/user'
+import permission from './modules/permission'
+import getters from './getters'
+
 Vue.use(Vuex)
 
-const mutations = {
-	sidebarNavMenuActive( state, item ) {
-		state.sidebar.navMenuActive = item.navMenuActive
-	}
-};
-
-const actions = {
-	setSidebarNavMenuActive (dis, item) {
-		dis.commit('sidebarNavMenuActive',item )
-	}
-};
-
-const state = {
-	sidebar: {
-		navMenuActive: '1-1-2'
-	}
-};
-
-export default new Vuex.Store({
-	state,
-  actions,
-  mutations
+const store = new Vuex.Store({
+  modules: {
+    app,
+    user,
+    permission
+  },
+  getters
 })
+
+export default store
