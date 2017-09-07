@@ -7,8 +7,7 @@
             开发日志：
           </div>
           <div class="card-block">
-           ### 20170907
-           * 登录增加权限验证
+           <devlog-md></devlog-md>
           </div>
         </div>
       </div><!--/.col-->
@@ -17,9 +16,12 @@
 </template>
 
 <script>
-
+import DevlogMd from '@/markdown/devlog.md'
+import 'highlight.js/styles/github.css'
+import 'github-markdown-css'
 export default {
   name: 'devlog',
+  components: { DevlogMd },
   data () {
     return {
     }
@@ -30,4 +32,12 @@ export default {
   }
 }
 </script>
-
+<style>
+  .markdown-body {
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 45px;
+  }
+</style>
