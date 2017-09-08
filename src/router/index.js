@@ -91,19 +91,82 @@ export const asyncRouterMap = [
     path: '/content',
     name: '内容管理',
     component: Full,
-    icon: '',
+    icon: 'document',
+    redirect: '/content/articlelist',
     children: [
     {
       path: 'articlelist',
-      name: '文章列表',
-      routerName: 'articlelist',
+      name: '新闻',
+      routerName: 'news',
       component: ArticleList,
-      children: [{
-        path: '/articleform',
-        name: 'ArticleForm',
-        routerName: 'ArticleForm',
-        component: ArticleForm  
-      }]
+      noDropdown: true
+    },{
+      path: 'articleform',
+      name: '创建文章',
+      routerName: 'ArticleForm',
+      hidden: true,
+      component: ArticleForm  
+    },    {
+      path: 'photolist',
+      name: '图集',
+      routerName: 'photo',
+      component: ArticleList,
+      noDropdown: true
+    },{
+      path: 'photoform',
+      name: '创建图集',
+      routerName: 'PhotoForm',
+      hidden: true,
+      component: PhotoForm  
+    },    {
+      path: 'skinlist',
+      name: '皮肤',
+      routerName: 'skin',
+      component: ArticleList,
+      noDropdown: true
+    },{
+      path: 'skinform',
+      name: '创建皮肤',
+      routerName: 'SkinForm',
+      hidden: true,
+      component: SkinForm  
+    },    {
+      path: 'videolist',
+      name: '视频',
+      routerName: 'video',
+      component: ArticleList,
+      noDropdown: true
+    },{
+      path: 'videoform',
+      name: '创建皮肤',
+      routerName: 'VideoForm',
+      hidden: true,
+      component: VideoForm  
+    },    {
+      path: 'herolist',
+      name: '英雄',
+      routerName: 'hero',
+      component: ArticleList,
+      noDropdown: true
+    },{
+      path: 'heroform',
+      name: '创建英雄',
+      routerName: 'HeroForm',
+      hidden: true,
+      component: HeroForm  
+    },    {
+      path: 'rolelist',
+      name: '职业',
+      routerName: 'hero',
+      component: ArticleList,
+      noDropdown: true
+    },{
+      path: 'roleform',
+      name: '创建职业',
+      routerName: 'RoleForm',
+      hidden: true,
+      component: RoleForm  
     }]
-  }
+  },
+  { path: '*', redirect: '/404', hidden: true }
 ]
