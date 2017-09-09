@@ -16,9 +16,9 @@ const permission = {
       return new Promise(resolve => {
         const { roles } = data
         let accessedRouters
-        if (roles.indexOf('admin') >= 0) {
-          accessedRouters = asyncRouterMap
-        } else {
+        if (roles.indexOf('admin') >= 0) { //判断是否为admin权限，如果是，将挂载所有异步路由
+          accessedRouters = asyncRouterMap  //异步路由
+        } else { //如果不是将根据白名单进行匹配
           accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         }
         commit('SET_ROUTERS', accessedRouters)
@@ -34,6 +34,7 @@ const permission = {
  * @param route
  */
 function hasPermission(roles, route) {
+    console.log('查看',roles,route )
   if (route.meta && route.meta.role) {
     return roles.some(role => route.meta.role.indexOf(role) >= 0)
   } else {
@@ -58,6 +59,5 @@ function filterAsyncRouter(asyncRouterMap, roles) {
   })
   return accessedRouters
 }
-
 
 export default permission

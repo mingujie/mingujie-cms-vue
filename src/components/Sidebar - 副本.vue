@@ -23,21 +23,8 @@ export default {
       'permission_routers'
     ])
   },
-  route: {
-    data: function(transition){
-      transition.next({
-          currentPath: transition.to.path
-      })
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'permission_routers'
-    ])
-  },
   
   created (){
-    console.log('路由白名单', this.permission_routers)
 
   },
   methods: {

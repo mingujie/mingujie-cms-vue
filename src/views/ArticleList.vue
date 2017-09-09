@@ -6,7 +6,7 @@
           <div class="card-header">
             <div class="row">
                 <div class="col-sm-9 col-md-9">  
-                  <el-button icon="plus" @click="$router.push({ name: viewConfig.createContentRouteName})">{{viewConfig.createContentBtnText}}</el-button>
+                  <el-button icon="plus" @click="$router.push({ path: viewConfig.path})">{{viewConfig.createContentBtnText}}</el-button>
                 </div>
                 <div class="col-sm-3 col-md-3"> 
                   <el-input
@@ -102,7 +102,7 @@ export default {
       viewConfig: {
         pageTitle: '文章列表',
         createContentBtnText: '创建文章',
-        routerName: 'article',
+        routerName: 'news',
         interfaceName: ''
       },
       searchVal: '',
@@ -140,8 +140,11 @@ export default {
      */
     initViewConfig ($route){
       let routeName = $route.name
+
+      console.log(routeName)
       if(routeName){
          this.viewConfig = getViewConfig(routeName);
+         console.log(this.viewConfig)
       }
     },
     /**
