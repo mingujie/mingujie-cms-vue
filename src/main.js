@@ -7,7 +7,7 @@ import Vue from 'vue'
 import {Input, Button, Pagination, Form, Radio,Option, Dialog, 
 	Menu, Submenu, MenuItem, MenuItemGroup, Select,
 	DatePicker, Transfer, Cascader, Card, Upload, Table,
-	TableColumn, FormItem, MessageBox, Message} from 'element-ui'
+	TableColumn, FormItem, MessageBox, Message, Checkbox} from 'element-ui'
 Vue.component(Input.name, Input)
 Vue.component(Pagination.name, Pagination)
 Vue.component(Button.name, Button)
@@ -30,6 +30,8 @@ Vue.component(TableColumn.name, TableColumn)
 Vue.component(FormItem.name, FormItem)
 Vue.component(Message.name, Message)
 Vue.component(MessageBox.name, MessageBox)
+Vue.component(Checkbox.name, Checkbox)
+
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
 
@@ -37,6 +39,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import '@/permission' // 用户权限控制
+import '@/assets/iconfont/iconfont.css'
 
 Vue.config.productionTip = false
 

@@ -12,7 +12,7 @@
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label"></label> 
               <div class="col-md-11">
-              <el-button type="primary">添加图片</el-button>
+              <el-button type="primary" @click="dialogPhotoVisible = true">添加图片</el-button>
               </div>
             </div>
             <div class="form-group row">
@@ -26,7 +26,12 @@
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">封面</label> 
               <div class="col-md-11">
-                <el-button size="small" @click="dialogPhotoVisible = true">从图片库选择</el-button>
+                <div class="block"><el-checkbox v-model="form.coverChecked">单图</el-checkbox></div>
+                <div class="article-cover-group">
+                  <div class="article-cover">
+                    <i class="iconfont icon-tupiantianjia"></i>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -108,20 +113,7 @@ export default {
         subTitle: '',
         name: '',
         cover: '',
-        desc: '',
-        skinType: '',
-        texiao: '',
-        price: '',
-        gold: '',
-        update: '',
-        buyAddress: '',
-        leavle: '',
-        status: '',
-        dealine: 4,
-        salesPrice: '',
-        game: '',
-        hero: '',
-        skinFrom: ''
+        coverChecked: true
       },
       skinTypeArr: [],
       dealineArr: []
@@ -151,11 +143,26 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss">
   .dialogPhoto .el-dialog {
     width : 845px !important;
   }
 .ql-container.ql-snow {
   height: 360px !important;
+}
+.article-cover-group {
+  .article-cover {
+    width: 150px;
+    height: 105px;
+    display: flex;
+    justify-content: center;
+    background: #f0f1f3;
+    cursor: pointer;
+  } 
+  .iconfont {
+    font-size: 46px;
+    align-items: center;
+    display: flex;    
+  }
 }
 </style>
