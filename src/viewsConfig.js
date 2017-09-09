@@ -40,6 +40,13 @@ const viewConfig = [{
 		path: 'roleform',
 		createContentBtnText: '创建职业',
 		createContentRouteName: 'RoleForm' 
+	},{
+		pageTitle: '游戏列表',
+		routeName: '游戏',
+		interfaceName: '',
+		path: 'gameform',
+		createContentBtnText: '创建游戏',
+		createContentRouteName: 'GameForm' 
 	}]
 
 	export default viewConfig;

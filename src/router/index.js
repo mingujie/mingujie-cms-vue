@@ -165,6 +165,18 @@ export const asyncRouterMap = [
       routerName: 'RoleForm',
       hidden: true,
       component: RoleForm  
+    },    {
+      path: 'gamelist',
+      name: '游戏',
+      routerName: 'game',
+      component: ArticleList,
+      noDropdown: true
+    },{
+      path: 'gameform',
+      name: '创建游戏',
+      routerName: 'GameForm',
+      hidden: true,
+      component: GameForm  
     }]
   },
   { path: '*', redirect: '/404', hidden: true }

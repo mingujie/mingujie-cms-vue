@@ -4,7 +4,7 @@
       <div class="col-sm-12 col-md-12">
         <div class="card">
           <div class="card-header">
-            <strong>新建皮肤消息</strong> <small></small>
+            <strong>新建职业</strong> <small></small>
           </div>
 
           <div class="card-block">
