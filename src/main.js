@@ -1,15 +1,13 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
-import router from './router'
-import store from './store'
-import '@/permission' // 权限
+
+
+//按需加载element-ui里的组件
 import {Input, Button, Pagination, Form, Radio,Option, Dialog, 
 	Menu, Submenu, MenuItem, MenuItemGroup, Select,
 	DatePicker, Transfer, Cascader, Card, Upload, Table,
 	TableColumn, FormItem, MessageBox, Message} from 'element-ui'
-	
 Vue.component(Input.name, Input)
 Vue.component(Pagination.name, Pagination)
 Vue.component(Button.name, Button)
@@ -35,6 +33,12 @@ Vue.component(MessageBox.name, MessageBox)
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
 
+import App from './App'
+import router from './router'
+import store from './store'
+import '@/permission' // 用户权限控制
+
+Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
