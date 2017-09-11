@@ -1,3 +1,7 @@
+##### 20170911
+* 图集增加上传图片完成后的显示列表
+* 显示列表用到了拖拽插件`vuedraggable` github url `https://github.com/SortableJS/Vue.Draggable` 
+
 ##### 20170910
 * 侧边栏路由整理（未完成）
 * 增加404路由

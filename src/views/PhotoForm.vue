@@ -6,13 +6,17 @@
           <div class="card-header">
             <strong>新建图集</strong> <small></small>
           </div>
-
           <div class="card-block">
             <el-form ref="form" :model="form" label-width="80px" id="form">
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <pagelet-figure-gallery :galleryItem="form.galleryItem" :changeGalleryItem="changeGalleryItem"></pagelet-figure-gallery>
+                </div>
+              </div>
             <div class="form-group row">
-              <label for="text-input" class="col-md-1 form-control-label"></label> 
-              <div class="col-md-11">
-              <el-button type="primary" @click="dialogPhotoVisible = true">添加图片</el-button>
+              <label for="text-input" class="col-md-1 form-control-label"></label>
+              <div class="col-md-11" style="margin-top:20px;">
+                <el-button type="primary" @click="dialogPhotoVisible = true">添加图片</el-button>
               </div>
             </div>
             <div class="form-group row">
@@ -102,9 +106,10 @@
 
 <script>
 import { quillEditor } from 'vue-quill-editor'
+import PageletFigureGallery from '@/components/photo/PageletFigureGallery'
 export default {
   name: 'articleForm',
-  components: { quillEditor },
+  components: { quillEditor,PageletFigureGallery },
   data () {
     return {
       dialogPhotoVisible: false,
@@ -113,7 +118,16 @@ export default {
         subTitle: '',
         name: '',
         cover: '',
-        coverChecked: true
+        coverChecked: true,
+        galleryItem: [{
+          gallery: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
+          textarea: '王小虎',
+          id: 1
+        },{
+          gallery: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
+          textarea: '张二吗',
+          id: 2
+        }]
       },
       skinTypeArr: [],
       dealineArr: []
@@ -139,6 +153,10 @@ export default {
     },
     onEditorReady () {
 
+    },
+    changeGalleryItem (data) {
+      console.log('nihao')
+      this.form.galleryItem = data;
     }
   }
 }
@@ -163,6 +181,7 @@ export default {
     font-size: 46px;
     align-items: center;
     display: flex;    
+    cursor: pointer;
   }
 }
 </style>
