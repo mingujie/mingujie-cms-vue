@@ -1,3 +1,8 @@
+##### 20170912
+* 修改图集表单【添加图片-上传图片】业务逻辑（60%）
+* 修改图集表单【类型】选择业务逻辑（完成）
+* 引入element ui Tabs模块
+
 ##### 20170911
 * 图集增加上传图片完成后的显示列表
 * 显示列表用到了拖拽插件`vuedraggable` github url `https://github.com/SortableJS/Vue.Draggable` 

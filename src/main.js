@@ -7,7 +7,8 @@ import Vue from 'vue'
 import {Input, Button, Pagination, Form, Radio,Option, Dialog, 
 	Menu, Submenu, MenuItem, MenuItemGroup, Select,
 	DatePicker, Transfer, Cascader, Card, Upload, Table,
-	TableColumn, FormItem, MessageBox, Message, Checkbox, Tooltip} from 'element-ui'
+	TableColumn, FormItem, MessageBox, Message, Checkbox, Tooltip,
+	Tabs, TabPane} from 'element-ui'
 Vue.component(Input.name, Input)
 Vue.component(Pagination.name, Pagination)
 Vue.component(Button.name, Button)
@@ -32,7 +33,8 @@ Vue.component(Message.name, Message)
 Vue.component(MessageBox.name, MessageBox)
 Vue.component(Checkbox.name, Checkbox)
 Vue.component(Tooltip.name, Tooltip)
-
+Vue.component(Tabs.name, Tabs)
+Vue.component(TabPane.name, TabPane)
 Vue.prototype.$confirm = MessageBox.confirm;
 Vue.prototype.$message = Message;
 

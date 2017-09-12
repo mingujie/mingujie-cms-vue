@@ -1,8 +1,8 @@
 <template>
   <div class="pagelet-figure-gallery">
-		<draggable class="list-group" v-model="galleryData" :options="{dragClass:'.el-icon-date'}" @end="onEnd">
+		<draggable class="list-group" v-model="galleryData" :options="{dragClass:'.el-icon-date'}">
 		 <transition-group type="transition" :name="'flip-list'">
-		  	<div class="pagelet-figure-gallery-item" v-if="galleryData.length" v-for="item in galleryData" :key="item.id">
+		  	<div class="pagelet-figure-gallery-item" v-for="(item,index) in galleryData" :key="index">
 					<div class="gallery-img"><img alt="" :src="item.gallery"></div>
 					<div class="gallery-txt"><textarea  :placeholder="item.textarea" maxlength="200"></textarea></div>
 			  	<div class="gallery-action">
@@ -10,7 +10,7 @@
 						  <el-button icon="picture"></el-button>
 						</el-tooltip>
 						<el-tooltip content="删除图片" placement="top" size="small">
-						  <el-button icon="delete"></el-button>
+						  <el-button icon="delete" @click="removeRow(index, galleryData)"></el-button>
 						</el-tooltip>
 						<el-tooltip content="拖动排序" placement="top" size="small">
 						  <el-button icon="date" class="item-draggable"></el-button>
@@ -42,21 +42,28 @@
     	}
     },
 	  watch: {
-	    isDragging (newValue) {
-	    	console.log(111)
-	    }
+	  	galleryData: function(val, oldVal){
+	  		this.onChangeGalleryItem(val);
+	  	}
 	  },
     created(){
     	this.galleryData = this.galleryItem
     },
     methods: {
-    	changePhoto (){
-    		console.log(1)
-    	},
-    	onEnd (){
-    		console.log(444)
-    		this.$emit('changeGalleryItem', this.galleryData)
-    	}
+
+    	onChangeGalleryItem (data){
+    		console.log(data)
+    		this.$emit('changeGalleryItem', data)
+    	},  
+	    /**
+	     * removeRow 根据index删除行
+	     * @param  { Number } index 表格index值
+	     * @param  { Object } rows  当前表格对象
+	     * @return {[type]}       [description]
+	     */
+	    removeRow (index, rows){
+	      rows.splice(index, 1);
+	    }
     }
   }
 </script>
