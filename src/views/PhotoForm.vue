@@ -10,7 +10,7 @@
             <el-form ref="form" :model="form" label-width="80px" id="form">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <pagelet-figure-gallery v-if="form.galleryItem.length" :galleryItem="form.galleryItem" @changeGalleryItem="changeGalleryItemHandle"></pagelet-figure-gallery>
+                  <pagelet-figure-gallery v-if="form.galleryItem.length" :galleryItem="form.galleryItem" @onUpdateCurGallery="updateCurGallery" @changeGalleryItem="changeGalleryItemHandle"></pagelet-figure-gallery>
                 </div>
               </div>
             <div class="form-group row">
@@ -23,7 +23,7 @@
               <label for="text-input" class="col-md-1 form-control-label">标题</label> 
               <div class="col-md-11">
                   <el-input placeholder="标题最多不超过60个字符1" v-model="form.title">
-                    <template slot="append"><span>0</span>/30</template>
+                    <template slot="append"><span>{{title.curLength}}</span>/30</template>
                   </el-input>
               </div>
             </div>
@@ -32,8 +32,9 @@
               <div class="col-md-11">
                 <div class="block"><el-checkbox v-model="form.coverChecked">单图</el-checkbox></div>
                 <div class="article-cover-group">
-                  <div class="article-cover">
-                    <i class="iconfont icon-tupiantianjia"></i>
+                  <div class="article-cover" @click="onUpdateCover(true, 'contentUpdate')">
+                    <img :src="form.cover" v-if="form.cover" />
+                    <i class="iconfont icon-tupiantianjia" v-else></i>
                   </div>
                 </div>
               </div>
@@ -75,12 +76,20 @@
       :before-close="handleClose" class="dialogPhoto">
         <template>
           <el-tabs v-model="tabs.activeName" class="photo-tabs" @tab-click="tabHandleClick">
+            <el-tab-pane label="正文图片" name="contentUpdate">
+              <div class="photo-upload-img">
+                <div class="content-img">
+                  <div class="img-item"  v-if="form.galleryItem.length" v-for="(item, index) in form.galleryItem" :data-key="index" @click="setSelectedCover(index, item)">
+                    <img :src="item.gallery" />
+                  </div>
+                </div>
+              </div>
+            </el-tab-pane>
             <el-tab-pane label="上传图片" name="localUpdate">
               <div class="photo-upload-img">
                 <div class="image-list" v-if="updateImg.length">
                   <el-upload
                     action="https://jsonplaceholder.typicode.com/posts/"
-                    multiple
                     list-type="picture-card"
                     :on-preview="handlePictureCardPreview"
                     :file-list="updateImg"
@@ -132,10 +141,15 @@ export default {
       tabs: {
         activeName: 'localUpdate'
       },
+      title: {
+        curLength: 0
+      },
       dialogImageUrl: '',
       dialogVisible: false,
       updateImg: [],
       photoLibrary: [],
+      updateMultiple: true,
+      selectedCover: null,
       form: {
         title: '',
         subTitle: '',
@@ -202,6 +216,10 @@ export default {
         }
       }
       this.updateImg = [];
+
+      if(this.tabs.activeName === 'contentUpdate') {
+        this.updateFormCover(this.selectedCover)
+      }
       //this.form.galleryItem.push(data)
     },
     handleSuccess (response, file, fileList){
@@ -221,6 +239,27 @@ export default {
       img.gallery = data.url;
       img.textarea = data.name;
       return img 
+    },
+    updateCurGallery(status, multiple) {
+      this.updateMultiple = multiple;
+      this.dialogPhotoVisible = status;
+      
+    },
+    onUpdateCover (diglogStatus, tabName) {
+      this.dialogPhotoVisible = diglogStatus;
+      this.setTabsActiveName(tabName)
+    },
+    setTabsActiveName(name) {
+      if(name) {
+        this.tabs.activeName = name
+      }
+    },
+    setSelectedCover (index, data) {
+      this.selectedCover = data;
+      console.log(this.selectedCover)
+    },
+    updateFormCover (data){
+      this.form.cover = data.gallery || data.url;
     }
   }
 }
@@ -234,6 +273,7 @@ export default {
   }
 }
 .photo-upload-img {
+    height: 420px;
     width: 100%;
     position: relative;
     color: #222;
@@ -242,6 +282,25 @@ export default {
   }
   .el-upload--picture-card {
     border-width: 2px;
+  }
+  .img-item {
+    width: 142px;
+    height: 120px;
+    position: relative;
+    display: inline-block;
+    border: 1px solid #e8e8e8;
+    margin: 10px;
+    cursor: pointer;
+    img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 100%;
+      max-height: 100%;
+      margin: auto;
+    }
   }
   .image-list {
     height: 450px;
@@ -265,7 +324,6 @@ export default {
   }
   .img-placeholder {
       height: 322px;
-      margin: 10px;
       padding-top: 150px;
       text-align: center;
       background: url('../assets/update_photo.png') center 70px no-repeat;
@@ -303,6 +361,10 @@ export default {
     .el-dialog__body {
       margin-top: -34px;
     }
+    .el-dialog__header {
+      position: relative;
+      z-index:9 
+    }
   }
 .ql-container.ql-snow {
   height: 360px !important;
@@ -315,6 +377,10 @@ export default {
     justify-content: center;
     background: #f0f1f3;
     cursor: pointer;
+    img {
+      width: 100%;
+      height: 100%;
+    }
   } 
   .iconfont {
     font-size: 46px;

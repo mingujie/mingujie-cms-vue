@@ -9,6 +9,7 @@ import {Input, Button, Pagination, Form, Radio,Option, Dialog,
 	DatePicker, Transfer, Cascader, Card, Upload, Table,
 	TableColumn, FormItem, MessageBox, Message, Checkbox, Tooltip,
 	Tabs, TabPane} from 'element-ui'
+	
 Vue.component(Input.name, Input)
 Vue.component(Pagination.name, Pagination)
 Vue.component(Button.name, Button)
