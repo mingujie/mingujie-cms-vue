@@ -7,7 +7,7 @@
 					<div class="gallery-txt"><textarea  :placeholder="item.textarea" maxlength="200"></textarea></div>
 			  	<div class="gallery-action">
 				  	<el-tooltip content="更换图片" placement="top" size="small">
-						  <el-button icon="picture" @click="$emit('onUpdateCurGallery',true, false)"></el-button>
+						  <el-button icon="picture" @click="$emit('onUpdateCurGallery',true, false, 'localUpdate')"></el-button>
 						</el-tooltip>
 						<el-tooltip content="删除图片" placement="top" size="small">
 						  <el-button icon="delete" @click="removeRow(index, galleryData)"></el-button>

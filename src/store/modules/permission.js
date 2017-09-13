@@ -34,7 +34,7 @@ const permission = {
  * @param route
  */
 function hasPermission(roles, route) {
-    console.log('查看',roles,route )
+
   if (route.meta && route.meta.role) {
     return roles.some(role => route.meta.role.indexOf(role) >= 0)
   } else {

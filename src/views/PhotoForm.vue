@@ -16,7 +16,7 @@
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label"></label>
               <div class="col-md-11" style="margin-top:20px;">
-                <el-button type="primary" @click="dialogPhotoVisible = true">添加图片</el-button>
+                <el-button type="primary" @click="updateDialogStatus(true, false, 'localUpdate')">添加图片</el-button>
               </div>
             </div>
             <div class="form-group row">
@@ -32,7 +32,7 @@
               <div class="col-md-11">
                 <div class="block"><el-checkbox v-model="form.coverChecked">单图</el-checkbox></div>
                 <div class="article-cover-group">
-                  <div class="article-cover" @click="onUpdateCover(true, 'contentUpdate')">
+                  <div class="article-cover" @click="updateDialogStatus(true, true, 'contentUpdate')">
                     <img :src="form.cover" v-if="form.cover" />
                     <i class="iconfont icon-tupiantianjia" v-else></i>
                   </div>
@@ -70,60 +70,13 @@
     </div>
     <el-dialog
       title=""
-      :visible.sync="dialogPhotoVisible"
+      :visible.sync="dialogVisible"
       size="small"
       :modal-append-to-body="false"
-      :before-close="handleClose" class="dialogPhoto">
-        <template>
-          <el-tabs v-model="tabs.activeName" class="photo-tabs" @tab-click="tabHandleClick">
-            <el-tab-pane label="正文图片" name="contentUpdate">
-              <div class="photo-upload-img">
-                <div class="content-img">
-                  <div class="img-item"  v-if="form.galleryItem.length" v-for="(item, index) in form.galleryItem" :data-key="index" @click="setSelectedCover(index, item)">
-                    <img :src="item.gallery" />
-                  </div>
-                </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="上传图片" name="localUpdate">
-              <div class="photo-upload-img">
-                <div class="image-list" v-if="updateImg.length">
-                  <el-upload
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    list-type="picture-card"
-                    :on-preview="handlePictureCardPreview"
-                    :file-list="updateImg"
-                    :on-remove="handleRemove">
-                    <i class="el-icon-plus"></i>
-                  </el-upload>
-                </div>
-                <div class="img-placeholder" v-else>
-                  <el-upload
-                    class="img-upload"
-                    action="https://jsonplaceholder.typicode.com/posts/"
-                    :on-preview="handlePreview"
-                    :on-remove="handleRemove"
-                    :on-success="handleSuccess"
-                    :show-file-list="false"
-                    multiple
-                    :file-list="updateImg">
-                    <el-button size="small" type="primary">点击选择图片</el-button>
-                    <div slot="tip" class="img-upload-tip">支持绝大多数图片格式，单张图片最大支持5MB</div>
-                  </el-upload>
-                </div>
-              </div>
-            </el-tab-pane>
-            <el-tab-pane label="素材库" name="onlineUpdate">
-              <div class="photo-upload-img">
-                <div class="img-placeholder">
-                    <div slot="tip" class="img-upload-tip" v-if="!photoLibrary.length">你可以在上传图片的时候选择添加到素材库喔！</div>
-                </div>
-              </div>
-            </el-tab-pane>
-          </el-tabs>
-        </template>
+      :before-close="handleClose" class="dialog-photo">
+        <photo-update></photo-update>
        <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogPhotoVisible = false">取 消</el-button>
+        <el-button @click="updateDialogStatus(false)">取 消</el-button>
         <el-button type="primary" @click="updateImgHandle(updateImg)">确 定</el-button>
       </span>
     </el-dialog>
@@ -132,22 +85,32 @@
 
 <script>
 import PageletFigureGallery from '@/components/photo/PageletFigureGallery'
+import PhotoUpdate from '@/components/form/PhotoUpdate'
+import getPhotoLibrary from '@/api/form/index.js'
 export default {
   name: 'articleForm',
-  components: {PageletFigureGallery },
+  components: {PageletFigureGallery, PhotoUpdate },
   data () {
     return {
-      dialogPhotoVisible: false,
+      dialogVisible: false,
       tabs: {
-        activeName: 'localUpdate'
+        activeName: 'localUpdate',
+        isContentPhoto: false
       },
       title: {
         curLength: 0
       },
       dialogImageUrl: '',
-      dialogVisible: false,
       updateImg: [],
-      photoLibrary: [],
+      photoLibrary: [{
+          gallery: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
+          textarea: '王小虎',
+          id: 1
+        },{
+          gallery: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
+          textarea: '张二吗',
+          id: 2
+        }],
       updateMultiple: true,
       selectedCover: null,
       form: {
@@ -182,6 +145,8 @@ export default {
     this.skinTypeArr = [{ value: '1', label: '普通' }, { value: '2', label: '史诗' }];
     this.dealineArr = [{ value: 1, label: '1天' }, { value: 2, label: '3天' }, { value: 3, label: '一周' }, { value: 4, label: '永久' }];
     this.texiaoArr =  [{ value: 0, label: '无' }, { value: 1, label: '有'}, { value: 2, label: '部分' },{ value: 3, label: '回城' }];
+
+
   },
   methods: {
     tabHandleClick (){
@@ -207,8 +172,9 @@ export default {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
+
     updateImgHandle (data){
-      this.dialogPhotoVisible = false;
+      this.dialogVisible = false;
       if(data.length) {
         for(let i=0; i<data.length; i++) {
           let img = this.formartGallery(data[i])
@@ -217,8 +183,12 @@ export default {
       }
       this.updateImg = [];
 
-      if(this.tabs.activeName === 'contentUpdate') {
+      if(this.tabs.activeName === 'contentPhoto') {
         this.updateFormCover(this.selectedCover)
+      }
+
+      if(this.tabs.activeName === '') {
+
       }
       //this.form.galleryItem.push(data)
     },
@@ -240,15 +210,22 @@ export default {
       img.textarea = data.name;
       return img 
     },
-    updateCurGallery(status, multiple) {
-      this.updateMultiple = multiple;
-      this.dialogPhotoVisible = status;
+    updateCurGallery(diglogStatus, contentPhotoStatus, tabsActiveName) {
       
     },
-    onUpdateCover (diglogStatus, tabName) {
-      this.dialogPhotoVisible = diglogStatus;
-      this.setTabsActiveName(tabName)
+    updateDialogStatus (diglogStatus, contentPhotoStatus, tabsActiveName){
+      if(typeof diglogStatus === 'boolean') {
+        this.dialogVisible = status;
+      }
+      if(typeof contentPhotoStatus === 'boolean') {
+        this.tabs.isContentPhoto = contentPhotoStatus
+      }
+
+      if(tabsActiveName) {
+        this.tabs.activeName = tabsActiveName;
+      }
     },
+
     setTabsActiveName(name) {
       if(name) {
         this.tabs.activeName = name
@@ -265,107 +242,18 @@ export default {
 }
 </script>
 <style lang="scss">
-.photo-tabs {
-  .el-tabs__nav {
-    .el-tabs__item {
-      font-size: 16px !important;
-    } 
+.dialog-photo {
+  .el-dialog {
+    width : 845px !important;
+  }
+  .el-dialog__body {
+    margin-top: -34px;
+  }
+  .el-dialog__header {
+    position: relative;
+    z-index:9 
   }
 }
-.photo-upload-img {
-    height: 420px;
-    width: 100%;
-    position: relative;
-    color: #222;
-  .el-upload-list__item-preview {
-    display: none !important;
-  }
-  .el-upload--picture-card {
-    border-width: 2px;
-  }
-  .img-item {
-    width: 142px;
-    height: 120px;
-    position: relative;
-    display: inline-block;
-    border: 1px solid #e8e8e8;
-    margin: 10px;
-    cursor: pointer;
-    img {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      max-width: 100%;
-      max-height: 100%;
-      margin: auto;
-    }
-  }
-  .image-list {
-    height: 450px;
-    width: 100%;
-    list-style: none;
-    padding: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
-    .image-item {
-      text-align: center;
-      overflow: hidden;
-      position: relative;
-      float: left;
-      font-size: 12px;
-      width: 110px;
-      height: 110px;
-      margin: 17px 0 0 17px;
-      z-index: 9999;
-    }
-  }
-  .img-placeholder {
-      height: 322px;
-      padding-top: 150px;
-      text-align: center;
-      background: url('../assets/update_photo.png') center 70px no-repeat;
-      color: #999;
-      font-size: 18px;
-    }
-    .img-upload-tip {
-      font-size: 14px;
-      margin-top: -5px;
-    }
-  .img-upload {
-    button {
-      display: inline-block;
-      overflow: hidden;
-      position: relative;
-      padding: 0 30px;
-      margin: 0 auto 20px;
-      -webkit-border-radius: 3px;
-      -moz-border-radius: 3px;
-      border-radius: 3px;
-      line-height: 44px;
-      color: #fff;
-      cursor: pointer;
-      -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.1);
-      -moz-box-shadow: 0 1px 1px rgba(0,0,0,.1);
-      box-shadow: 0 1px 1px rgba(0,0,0,.1);
-      font-size: 14px;
-    }
-  }
-}
-  .dialogPhoto {
-    .el-dialog {
-      width : 845px !important;
-    }
-    .el-dialog__body {
-      margin-top: -34px;
-    }
-    .el-dialog__header {
-      position: relative;
-      z-index:9 
-    }
-  }
 .ql-container.ql-snow {
   height: 360px !important;
 }

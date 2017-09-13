@@ -5,6 +5,7 @@
   "author": "Łukasz Holeczek <lukasz@holeczek.pl>",
   "private": true,
   "scripts": {
+    "mock": "easymock init .",
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "node build/build.js",
