@@ -1,6 +1,6 @@
 <template>
   <div class="pagelet-figure-gallery">
-		<draggable class="list-group" v-model="galleryData" :options="{dragClass:'.el-icon-date'}">
+		<draggable class="list-group" v-model="galleryData" :options="{handle:'.el-icon-date', animation: 200}">
 		 <transition-group type="transition" :name="'flip-list'">
 		  	<div class="pagelet-figure-gallery-item" v-for="(item,index) in galleryData" :key="index">
 					<div class="gallery-img"><img alt="" :src="item.gallery"></div>
