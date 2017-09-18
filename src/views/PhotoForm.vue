@@ -96,7 +96,8 @@ export default {
       updateConfig: {
         isMultiple: false,
         activeName: '',
-        contentPicture: false
+        contentPicture: false,
+        from: ''
       },
       title: {
         curLength: 0
@@ -185,6 +186,7 @@ export default {
       this.updateDialogStatus(status)
       this.updateConfig.contentPicture = isContentPicture;
       this.updateConfig.activeName = from;
+      this.updateConfig.from = from;
     },
     onCancelHandle (){
       this.updateDialogStatus(false)

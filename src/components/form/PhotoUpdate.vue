@@ -3,7 +3,7 @@
     <el-tab-pane label="正文图片" name="singleUpdate" v-if="updateConfig.contentPicture">
       <div class="photo-upload-img">
         <div class="content-img">
-          <div class="img-item"  v-if="contentPhoto.length" v-for="(item, index) in contentPhoto" :data-key="index" @click="onSelectedCover(index, item)">
+          <div class="img-item"  v-if="contentPhoto.length" v-for="(item, index) in contentPhoto" :data-key="index" @click="onSelectedPhoto(index, item)">
             <img :src="item.url" />
           </div>
         </div>
@@ -17,6 +17,17 @@
             list-type="picture-card"
             :file-list="selectedPhotoLocal">
             <i class="el-icon-plus"></i>
+          </el-upload>
+        </div>
+        <div class="img-placeholder" v-else-if="updateConfig.from == 'singleUpdate' ">
+          <el-upload
+            class="img-upload"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-success="updatePhotoSuccess"
+            :show-file-list="false"
+            :file-list="selectedPhotoLocal">
+            <el-button size="small" type="primary">点击选择图片</el-button>
+            <div slot="tip" class="img-upload-tip">支持绝大多数图片格式，单张图片最大支持5MB</div>
           </el-upload>
         </div>
         <div class="img-placeholder" v-else>
@@ -39,7 +50,7 @@
             <div slot="tip" class="img-upload-tip">你可以在上传图片的时候选择添加到素材库喔！</div>
         </div>
         <div v-else>
-          <div class="img-item"  v-if="photoLibrary.data.length" v-for="(item, index) in photoLibrary.data" :data-key="index" @click="onSelectedPhotoLibrary(index, item, $event)" :class="{'active':item.checked}">
+          <div class="img-item"  v-if="photoLibrary.data.length" v-for="(item, index) in photoLibrary.data" :data-key="index" @click="onSelectedPhoto(index, item, $event)" :class="{'active':item.checked}">
             <img :src="item.url" />
             <label class="img-selected"><i class="el-icon-upload-success el-icon-check"></i></label>
           </div>
@@ -67,9 +78,6 @@ export default {
     },
     dialogVisible: {
       type: Boolean
-    },
-    updateConfig: {
-      type: Object
     },
     contentPhoto: {
       type: Array
@@ -117,33 +125,48 @@ export default {
     console.log(this.updateConfig)
   },
   methods: {
-    onSelectedCover (index, item){
+    /**
+     * onSelectedCover 更新封面图片
+     * @param  { Number } index 当前所选图片下标
+     * @param  { Object } item  当前所选图片对象
+     * @return {[type]}       [description]
+     */
+    onSelectedCover (item, data){
       let _this = this;
-      this.$emit('updateCover', item, false);
+      _this.$emit('updateCover', item, false);
+      _this.$set(_this.selectedPhotoLocal, []);
     },
     /**
-     * onSelectedPhotoLibrary 更新已选择图片数据
+     * onSelectedPhoto 更新已选择图片数据
      * @param  { Number } index   当前选择的下标
      * @param  { Object } curItem 当前选择的对象
      * @return {[type]}         [description]
      */
-    onSelectedPhotoLibrary (index, curItem, event){
-      let _this = this;
+    onSelectedPhoto (index, curItem){
+      let _this = this, 
+          from = _this.updateConfig.from
 
-      if(typeof curItem.checked == 'undefined' ) {
-        _this.$set(curItem, 'checked', true);
-        _this.selectedPhotoLibrary.push(curItem)
+          console.log(from)
+      if(from === 'singleUpdate') {
 
-      }else {
-        curItem.checked = !curItem.checked;
-        if(curItem.checked) {
+        this.onSelectedCover(curItem)
+
+      }else{
+
+        if(typeof curItem.checked == 'undefined' ) {
+          _this.$set(curItem, 'checked', true);
           _this.selectedPhotoLibrary.push(curItem)
+
         }else {
-          _this.selectedPhotoLibrary.splice(index, 1)
-          
+          curItem.checked = !curItem.checked;
+          if(curItem.checked) {
+            _this.selectedPhotoLibrary.push(curItem)
+          }else {
+            _this.selectedPhotoLibrary.splice(index, 1)
+            
+          }
         }
       }
-
     },
     /**
      * updatePhotoSuccess 上传图片成功后调用
@@ -153,8 +176,13 @@ export default {
      * @return {[type]}          [description]
      */
     updatePhotoSuccess (response, file, fileList){
-      let img = this.formartImg(file)
-      this.selectedPhotoLocal.push(img)
+      let imgItem = this.formartImg(file)
+      this.onSelectedCover(imgItem, this.selectedPhotoLocal)
+      this.selectedPhotoLocal.push(imgItem)
+
+      // if(this.updateConfig.from === 'singleUpdate' && this.selectedPhotoLocal.length) {
+
+      // }
     },
     /**
      * formartImg 格式化图片
