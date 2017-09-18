@@ -3,7 +3,7 @@
     <el-tab-pane label="正文图片" name="singleUpdate" v-if="updateConfig.contentPicture">
       <div class="photo-upload-img">
         <div class="content-img">
-          <div class="img-item"  v-if="contentPhoto.length" v-for="(item, index) in contentPhoto" :data-key="index" @click="setSelectedCover(index, item)">
+          <div class="img-item"  v-if="contentPhoto.length" v-for="(item, index) in contentPhoto" :data-key="index" @click="onSelectedCover(index, item)">
             <img :src="item.url" />
           </div>
         </div>
@@ -117,6 +117,10 @@ export default {
     console.log(this.updateConfig)
   },
   methods: {
+    onSelectedCover (index, item){
+      let _this = this;
+      this.$emit('updateCover', item, false);
+    },
     /**
      * onSelectedPhotoLibrary 更新已选择图片数据
      * @param  { Number } index   当前选择的下标

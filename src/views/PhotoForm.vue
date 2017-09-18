@@ -74,7 +74,7 @@
       size="small"
       :modal-append-to-body="false"
       :before-close="handleClose" class="dialog-photo">
-        <photo-update :updateConfig="updateConfig" :contentPhoto="form.galleryItem"></photo-update>
+        <photo-update :updateConfig="updateConfig" :contentPhoto="form.galleryItem" @updateCover="onUpdateFormCover"></photo-update>
        <span slot="footer" class="dialog-footer">
         <el-button @click="onCancelHandle">取 消</el-button>
         <el-button type="primary" @click="initUpdateConfigHandle(updateImg)">确 定</el-button>
@@ -189,8 +189,16 @@ export default {
     onCancelHandle (){
       this.updateDialogStatus(false)
     },
-    updateFormCover (data){
-      this.form.cover = data.gallery || data.url;
+    /**
+     * onUpdateFormCover 更新封面图片
+     * @param  { Object } data 当前被选中的正文图片
+     * @param  { Boolean } status dialog状态 
+     * @return {[type]}      [description]
+     */
+    onUpdateFormCover (data, status){
+      console.log(data);
+      this.form.cover = data.url;
+      this.updateDialogStatus(status)
     }
   }
 }
