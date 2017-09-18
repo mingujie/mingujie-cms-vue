@@ -1,10 +1,10 @@
 <template>
-  <el-tabs v-model="tabsConfig.activeName" class="photo-tabs" @tab-click="tabHandleClick">
-    <el-tab-pane label="正文图片" name="contentUpdate" v-if="tabsConfig.isContentUpdate">
+  <el-tabs v-model="updateConfig.activeName" class="photo-tabs" @tab-click="tabHandleClick">
+    <el-tab-pane label="正文图片" name="singleUpdate" v-if="updateConfig.contentPicture">
       <div class="photo-upload-img">
         <div class="content-img">
-          <div class="img-item"  v-if="contentPhoto.length" v-for="(item, index) in form.galleryItem" :data-key="index" @click="setSelectedCover(index, item)">
-            <img :src="item.gallery" />
+          <div class="img-item"  v-if="contentPhoto.length" v-for="(item, index) in contentPhoto" :data-key="index" @click="setSelectedCover(index, item)">
+            <img :src="item.url" />
           </div>
         </div>
       </div>
@@ -39,8 +39,9 @@
             <div slot="tip" class="img-upload-tip">你可以在上传图片的时候选择添加到素材库喔！</div>
         </div>
         <div v-else>
-          <div class="img-item"  v-if="photoLibrary.data.length" v-for="(item, index) in photoLibrary.data" :data-key="index" @click="onSelectedPhotoLibrary(index, item)">
+          <div class="img-item"  v-if="photoLibrary.data.length" v-for="(item, index) in photoLibrary.data" :data-key="index" @click="onSelectedPhotoLibrary(index, item, $event)" :class="{'active':item.checked}">
             <img :src="item.url" />
+            <label class="img-selected"><i class="el-icon-upload-success el-icon-check"></i></label>
           </div>
         </div>
       </div>
@@ -56,23 +57,21 @@ export default {
       photoItem: [],
       selectedPhotoLocal: [],
       selectedPhotoLibrary: [],
-      tabActiveName: ''
+      tabActiveName: '',
+      selectedPhotoIndex: ''
     }
   },
   props: {
-    tabsConfig: {
-      default: function(){
-        return {
-          activeName: 'localUpdate',
-          isContentUpdate: false
-        }
-      },
+    updateConfig: {
+      type: Object
+    },
+    dialogVisible: {
+      type: Boolean
+    },
+    updateConfig: {
       type: Object
     },
     contentPhoto: {
-      default: function(){
-        return []
-      },
       type: Array
     },
     photoLibrary: {
@@ -80,22 +79,28 @@ export default {
         return {
           data: [{
           url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          desc: '王小虎'
+          desc: '1',
+          active: false
         },{
           url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          desc: '张二吗'
+          desc: '2',
+          active: false
         },{
           url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          desc: '王小虎'
+          desc: '3',
+          active: false
         },{
           url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          desc: '张二吗'
+          desc: '4',
+          active: false
         },{
           url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          desc: '王小虎'
+          desc: '5',
+          active: false
         },{
           url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          desc: '张二吗'
+          desc: '6',
+          active: false
         }],
           page: 1,
           size: 10,
@@ -109,18 +114,32 @@ export default {
 
   },  
   created (){
-    
+    console.log(this.updateConfig)
   },
   methods: {
     /**
-     * onSelectedPhotoLibrary 跟新已选择图片数据
+     * onSelectedPhotoLibrary 更新已选择图片数据
      * @param  { Number } index   当前选择的下标
      * @param  { Object } curItem 当前选择的对象
      * @return {[type]}         [description]
      */
-    onSelectedPhotoLibrary (index, curItem){
-      this.selectedPhotoLibrary.push(curItem)
-      console.log(this.selectedPhotoLibrary)
+    onSelectedPhotoLibrary (index, curItem, event){
+      let _this = this;
+
+      if(typeof curItem.checked == 'undefined' ) {
+        _this.$set(curItem, 'checked', true);
+        _this.selectedPhotoLibrary.push(curItem)
+
+      }else {
+        curItem.checked = !curItem.checked;
+        if(curItem.checked) {
+          _this.selectedPhotoLibrary.push(curItem)
+        }else {
+          _this.selectedPhotoLibrary.splice(index, 1)
+          
+        }
+      }
+
     },
     /**
      * updatePhotoSuccess 上传图片成功后调用
@@ -144,19 +163,12 @@ export default {
       img.url = data.url
       return img
     },
-    formartGallery (data){
-      var img = {} 
-      img.gallery = data.url;
-      img.textarea = data.name;
-      return img 
-    },
     /**
      * tabHandleClick tab切换
      * @param  {[type]} item [description]
      * @return {[type]}      [description]
      */
     tabHandleClick (item){
-
       this.tabActiveName = item.name;
       this.clearSelectedPhoto(item.name)
     },
@@ -203,6 +215,27 @@ export default {
     border: 1px solid #e8e8e8;
     margin-right: 10px;
     cursor: pointer;
+    overflow: hidden;
+    .img-selected {
+      position: absolute;
+      display: none;
+      right: -15px;
+      top: -6px;
+      width: 40px;
+      height: 24px;
+      background: #13ce66;
+      text-align: center;
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+      box-shadow: 0 0 1pc 1px rgba(0,0,0,.2);
+      .el-icon-upload-success {
+        color: #fff;
+        font-size: 12px;
+        margin-top: 11px;
+        -ms-transform: rotate(-45deg) scale(.8);
+        transform: rotate(-45deg) scale(.8);
+      }
+    }
     img {
       position: absolute;
       top: 0;
@@ -212,6 +245,11 @@ export default {
       max-width: 100%;
       max-height: 100%;
       margin: auto;
+    }
+  }
+  .img-item.active {
+    .img-selected {
+      display: block;
     }
   }
   .image-list {

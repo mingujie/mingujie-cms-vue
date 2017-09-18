@@ -10,13 +10,13 @@
             <el-form ref="form" :model="form" label-width="80px" id="form">
               <div class="form-group row">
                 <div class="col-md-12">
-                  <pagelet-figure-gallery v-if="form.galleryItem.length" :galleryItem="form.galleryItem" @onUpdateCurGallery="updateCurGallery" @changeGalleryItem="changeGalleryItemHandle"></pagelet-figure-gallery>
+                  <pagelet-figure-gallery v-if="form.galleryItem.length" :galleryItem="form.galleryItem" @onUpdateCurGallery="initUpdateConfig" @changeGalleryItem="changeGalleryItemHandle"></pagelet-figure-gallery>
                 </div>
               </div>
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label"></label>
               <div class="col-md-11" style="margin-top:20px;">
-                <el-button type="primary" @click="updateDialogStatus(true, false, 'localUpdate')">添加图片</el-button>
+                <el-button type="primary" @click="initUpdateConfig(true, false, 'localUpdate')">添加图片</el-button>
               </div>
             </div>
             <div class="form-group row">
@@ -32,7 +32,7 @@
               <div class="col-md-11">
                 <div class="block"><el-checkbox v-model="form.coverChecked">单图</el-checkbox></div>
                 <div class="article-cover-group">
-                  <div class="article-cover" @click="updateDialogStatus(true, true, 'contentUpdate')">
+                  <div class="article-cover" @click="initUpdateConfig(true, true, 'singleUpdate')">
                     <img :src="form.cover" v-if="form.cover" />
                     <i class="iconfont icon-tupiantianjia" v-else></i>
                   </div>
@@ -74,10 +74,10 @@
       size="small"
       :modal-append-to-body="false"
       :before-close="handleClose" class="dialog-photo">
-        <photo-update></photo-update>
+        <photo-update :updateConfig="updateConfig" :contentPhoto="form.galleryItem"></photo-update>
        <span slot="footer" class="dialog-footer">
-        <el-button @click="updateDialogStatus(false)">取 消</el-button>
-        <el-button type="primary" @click="updateImgHandle(updateImg)">确 定</el-button>
+        <el-button @click="onCancelHandle">取 消</el-button>
+        <el-button type="primary" @click="initUpdateConfigHandle(updateImg)">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -93,9 +93,10 @@ export default {
   data () {
     return {
       dialogVisible: false,
-      tabs: {
-        activeName: 'localUpdate',
-        isContentPhoto: false
+      updateConfig: {
+        isMultiple: false,
+        activeName: '',
+        contentPicture: false
       },
       title: {
         curLength: 0
@@ -103,12 +104,12 @@ export default {
       dialogImageUrl: '',
       updateImg: [],
       photoLibrary: [{
-          gallery: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          textarea: '王小虎',
+          url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
+          desc: '王小虎',
           id: 1
         },{
-          gallery: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          textarea: '张二吗',
+          url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
+          desc: '张二吗',
           id: 2
         }],
       updateMultiple: true,
@@ -122,12 +123,12 @@ export default {
         coverChecked: true,
         type: '',
         galleryItem: [{
-          gallery: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          textarea: '王小虎',
+          url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
+          desc: '王小虎',
           id: 1
         },{
-          gallery: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
-          textarea: '张二吗',
+          url: 'https://p3.pstatp.com/large/39bd000263658b94b2ff',
+          desc: '张二吗',
           id: 2
         }]
       },
@@ -149,91 +150,44 @@ export default {
 
   },
   methods: {
-    tabHandleClick (){
-      console.log(321)
-    },
+
     handleClose (done) {
       done()
     },
-    onRadioChange (val) {
-      console.log(this.form)
-    },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePreview(file) {
-      console.log(file);
-    },
+
     changeGalleryItemHandle (data) {
 
       this.form.galleryItem = data;
     },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
 
-    updateImgHandle (data){
-      this.dialogVisible = false;
-      if(data.length) {
-        for(let i=0; i<data.length; i++) {
-          let img = this.formartGallery(data[i])
-          this.form.galleryItem.push(img)
-        }
-      }
-      this.updateImg = [];
+    initUpdateConfigHandle (data){
 
-      if(this.tabs.activeName === 'contentPhoto') {
-        this.updateFormCover(this.selectedCover)
-      }
 
-      if(this.tabs.activeName === '') {
-
-      }
-      //this.form.galleryItem.push(data)
     },
-    handleSuccess (response, file, fileList){
-
-      let img = this.formartImg(file)
-      this.updateImg.push(img)
-      console.log(this.updateImg)
-    },
-    formartImg (data){
-      var img = {}
-      img.name = data.name
-      img.url = data.url
-      return img
-    },
-    formartGallery (data){
-      var img = {} 
-      img.gallery = data.url;
-      img.textarea = data.name;
-      return img 
-    },
-    updateCurGallery(diglogStatus, contentPhotoStatus, tabsActiveName) {
-      
-    },
-    updateDialogStatus (diglogStatus, contentPhotoStatus, tabsActiveName){
-      if(typeof diglogStatus === 'boolean') {
+    /**
+     * updateDialogStatus 更新弹窗状态（隐藏或显示）
+     * @param  { Boolean } status 弹窗状态 true false
+     * @return {[type]}        [description]
+     */
+    updateDialogStatus (status){
+      if(typeof status === 'boolean') {
         this.dialogVisible = status;
       }
-      if(typeof contentPhotoStatus === 'boolean') {
-        this.tabs.isContentPhoto = contentPhotoStatus
-      }
-
-      if(tabsActiveName) {
-        this.tabs.activeName = tabsActiveName;
-      }
     },
-
-    setTabsActiveName(name) {
-      if(name) {
-        this.tabs.activeName = name
-      }
+    /**
+     * initUpdateConfig 更新上传照片组件状态
+     * @param  { Boolean }  status  更新dialog状态 {true or false}
+     * @param  { Boolean } isContentPicture 更新 tabs 正文内容 状态
+     * @param  { String }  from  该状态来源，分别有正文图片（contentPicture）, 图片上传（localUpdate），素材库（onlineUpdate）
+     * @return {[type]}                   [description]
+     */
+    initUpdateConfig (status, isContentPicture, from){
+      this.updateDialogStatus(status)
+      this.updateConfig.contentPicture = isContentPicture;
+      this.updateConfig.activeName = from;
     },
-    setSelectedCover (index, data) {
-      this.selectedCover = data;
-      console.log(this.selectedCover)
+    onCancelHandle (){
+      this.updateDialogStatus(false)
     },
     updateFormCover (data){
       this.form.cover = data.gallery || data.url;
