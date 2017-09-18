@@ -126,21 +126,21 @@ export default {
   },
   methods: {
     /**
-     * onSelectedCover 更新封面图片
+     * onSelectedPhoto 更新封面图片
      * @param  { Number } index 当前所选图片下标
      * @param  { Object } item  当前所选图片对象
      * @return {[type]}       [description]
      */
-    onSelectedCover (item, data){
+    onSelectedPhoto (item, from){
       let _this = this;
-      _this.$emit('updateCover', item, false);
+      _this.$emit('updatePhoto', item, from);
       _this.$set(_this.selectedPhotoLocal, []);
     },
     /**
      * onSelectedPhoto 更新已选择图片数据
      * @param  { Number } index   当前选择的下标
      * @param  { Object } curItem 当前选择的对象
-     * @return {[type]}         [description]
+     * @return {[type]}   [description]
      */
     onSelectedPhoto (index, curItem){
       let _this = this, 
@@ -149,7 +149,7 @@ export default {
           console.log(from)
       if(from === 'singleUpdate') {
 
-        this.onSelectedCover(curItem)
+        this.onSelectedPhoto(curItem, from)
 
       }else{
 
@@ -166,6 +166,8 @@ export default {
             
           }
         }
+
+        this.onSelectedPhoto(_this.selectedPhotoLibrary, from)
       }
     },
     /**
@@ -177,7 +179,7 @@ export default {
      */
     updatePhotoSuccess (response, file, fileList){
       let imgItem = this.formartImg(file)
-      this.onSelectedCover(imgItem, this.selectedPhotoLocal)
+      this.onSelectedPhoto(imgItem, this.selectedPhotoLocal)
       this.selectedPhotoLocal.push(imgItem)
 
       // if(this.updateConfig.from === 'singleUpdate' && this.selectedPhotoLocal.length) {

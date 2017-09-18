@@ -74,10 +74,10 @@
       size="small"
       :modal-append-to-body="false"
       :before-close="handleClose" class="dialog-photo">
-        <photo-update :updateConfig="updateConfig" :contentPhoto="form.galleryItem" @updateCover="onUpdateFormCover"></photo-update>
+        <photo-update :updateConfig="updateConfig" :contentPhoto="form.galleryItem" @updatePhoto="onUpdatePhoto"></photo-update>
        <span slot="footer" class="dialog-footer">
         <el-button @click="onCancelHandle">取 消</el-button>
-        <el-button type="primary" @click="initUpdateConfigHandle(updateImg)">确 定</el-button>
+        <el-button type="primary" @click="onConfirmHandle(updateImg)">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -99,6 +99,7 @@ export default {
         contentPicture: false,
         from: ''
       },
+      selectedPhoto: [],
       title: {
         curLength: 0
       },
@@ -161,9 +162,11 @@ export default {
       this.form.galleryItem = data;
     },
 
-    initUpdateConfigHandle (data){
+    onConfirmHandle (data){
+      let from = this.updateConfig.from
+      if(from === 'onlineUpdate') {
 
-
+      }
     },
     /**
      * updateDialogStatus 更新弹窗状态（隐藏或显示）
@@ -192,15 +195,20 @@ export default {
       this.updateDialogStatus(false)
     },
     /**
-     * onUpdateFormCover 更新封面图片
+     * onUpdatePhoto 更新封面图片
      * @param  { Object } data 当前被选中的正文图片
      * @param  { Boolean } status dialog状态 
      * @return {[type]}      [description]
      */
-    onUpdateFormCover (data, status){
+    onUpdatePhoto (data, from){
       console.log(data);
       this.form.cover = data.url;
-      this.updateDialogStatus(status)
+      if(from === 'singleUpdate') {
+        this.updateDialogStatus(false)
+      }else if(from ==='onlineUpdate') {
+        this.selectedPhoto = data;
+        console.log(this.selectedPhoto)
+      }
     }
   }
 }
