@@ -126,12 +126,12 @@ export default {
   },
   methods: {
     /**
-     * onSelectedPhoto 更新封面图片
+     * onUpdatePhoto 更新封面图片
      * @param  { Number } index 当前所选图片下标
      * @param  { Object } item  当前所选图片对象
      * @return {[type]}       [description]
      */
-    onSelectedPhoto (item, from){
+    onUpdatePhoto (item, from){
       let _this = this;
       _this.$emit('updatePhoto', item, from);
       _this.$set(_this.selectedPhotoLocal, []);
@@ -149,7 +149,7 @@ export default {
           console.log(from)
       if(from === 'singleUpdate') {
 
-        this.onSelectedPhoto(curItem, from)
+        this.onUpdatePhoto(curItem, from)
 
       }else{
 
@@ -167,7 +167,7 @@ export default {
           }
         }
 
-        this.onSelectedPhoto(_this.selectedPhotoLibrary, from)
+        this.onUpdatePhoto(_this.selectedPhotoLibrary, from)
       }
     },
     /**

@@ -165,8 +165,25 @@ export default {
     onConfirmHandle (data){
       let from = this.updateConfig.from
       if(from === 'onlineUpdate') {
+        //this.form.galleryItem.push(this.selectedPhoto);
+      }else if( from === 'localUpdate') {
+
+        console.log(this.selectedPhoto)
+
+        let photos = this.selectedPhoto;
+        if(photos.length) {
+          for(let i=0;i<photos.length;i++) {
+            console.log(photos[i])
+            this.form.galleryItem.push(photos[i]);
+          
+          }
+        }
+      this.selectedPhoto = [];
+      }else if( from === 'singleUpdate') {
 
       }
+
+      this.updateDialogStatus(false)
     },
     /**
      * updateDialogStatus 更新弹窗状态（隐藏或显示）
@@ -192,6 +209,7 @@ export default {
       this.updateConfig.from = from;
     },
     onCancelHandle (){
+      console.log(this.updateConfig)
       this.updateDialogStatus(false)
     },
     /**
@@ -201,13 +219,13 @@ export default {
      * @return {[type]}      [description]
      */
     onUpdatePhoto (data, from){
-      console.log(data);
-      this.form.cover = data.url;
+      console.log('这是',data);
+      
       if(from === 'singleUpdate') {
+        this.form.cover = data.url;
         this.updateDialogStatus(false)
-      }else if(from ==='onlineUpdate') {
+      }else{
         this.selectedPhoto = data;
-        console.log(this.selectedPhoto)
       }
     }
   }
