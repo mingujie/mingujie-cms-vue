@@ -13,7 +13,7 @@
               <div class="col-md-11">
                   <el-form-item prop="title" class="form-item">
                   <el-input placeholder="标题最多不超过60个字符" v-model="form.title">
-                    <template slot="append"><span>0</span>/60</template>
+                    <template slot="append"><span>{{titleLen}}</span>/60</template>
                   </el-input>
                   </el-form-item>
               </div>
@@ -120,9 +120,34 @@ export default {
   name: 'articleForm',
   components: { quillEditor },
   data () {
+    var _self = this;
+    function chkstrlen(str){
+      var len = 0;
+      for (var i=0; i<str.length; i++) { 
+       var c = str.charCodeAt(i); 
+      //单字节加1 
+       if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) { 
+         len++; 
+       } 
+       else { 
+        len+=1; 
+       } 
+      } 
+      return len;
+    }
+    var validatrStrLen = (rule, value, callback) => {
+
+      if(!value) {
+         callback(new Error('标题不能为空'));
+      }else {
+        _self.titleLen = chkstrlen(value)
+      }
+      console.log(value)
+    }
     return {
       isModifyStatus: false,
       dialogPhotoVisible: false,
+      titleLen: 0,
       editor: {
         options: {
         },
@@ -138,7 +163,7 @@ export default {
       },
       rules: {
           title: [
-            { required: true, message: '麻蛋，标题都能忘记填！', trigger: 'blur' }          
+            {trigger: 'change',validator: validatrStrLen  }          
           ],
           content: [
           { required: true, message: '内容，内容，内容！！！重要的事情说三遍', trigger: 'change'}  
