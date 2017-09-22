@@ -13,7 +13,7 @@
               <div class="col-md-11">
                   <el-form-item prop="title" class="form-item">
                   <el-input placeholder="标题最多不超过60个字符" v-model="form.title">
-                    <template slot="append"><span>{{titleLen}}</span>/60</template>
+                    <template slot="append"><span class="number">{{titleLen}}</span>/30</template>
                   </el-input>
                   </el-form-item>
               </div>
@@ -23,7 +23,7 @@
               <div class="col-md-11">
               <el-form-item prop="subTitle" class="form-item">
                   <el-input placeholder="选填内容" v-model="form.subTitle">
-                    <template slot="append"><span>0</span>/60</template>
+                    <template slot="append"><span>0</span>/30</template>
                   </el-input>
               </el-form-item>
               </div>
@@ -45,12 +45,12 @@
             <div class="form-group row">
               <label for="text-input" class="col-md-1 form-control-label">封面</label> 
               <div class="col-md-11">
-                <label for="prependedInput" class="form-control-label">最少一张封面，文章阅读量嗖嗖的</label>
-                <div class="block">
-                <el-form-item prop="cover" class="form-item">
-                  <el-button size="small">从正文选择</el-button>
-                  <el-button size="small" @click="dialogPhotoVisible = true">从图片库选择</el-button>
-                </el-form-item>
+                <label for="prependedInput" class="form-control-label">有封面，文章阅读量嗖嗖的</label>
+                <div class="article-cover-group">
+                  <div class="article-cover" @click="initUpdateConfig(true, true, 'singleUpdate')">
+                    <img :src="form.cover" v-if="form.cover" />
+                    <i class="iconfont icon-tupiantianjia" v-else></i>
+                  </div>
                 </div>
               </div>
             </div>
@@ -78,37 +78,15 @@
       </div><!--/.col-->
     </div>
     <el-dialog
-      title="选择图片"
-      :visible.sync="dialogPhotoVisible"
+      title="选择封面"
+      :visible.sync="dialogVisible"
       size="small"
-      :before-close="handleClose" class="dialogPhoto">
-        <div class="card">
-          <div class="card-header"> 
-           <el-button type="success" size="small">本地上传</el-button>    
-          </div>
-          <div class="card-block">
-            <div class="row">
-              <div class="col-md-3">
-1
-              </div>
-                            <div class="col-md-3">
-2
-              </div>
-
-              <div class="col-md-3">
-3
-              </div>
-              <div class="col-md-3">
-4
-              </div>
-
-            </div>
-          </div>
-      </div>
+      :modal-append-to-body="false"
+      :before-close="handleClose" class="dialog-photo">
+       啊
        <span slot="footer" class="dialog-footer">
-
-        <el-button @click="dialogPhotoVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogPhotoVisible = false">确 定</el-button>
+        <el-button @click="onCancelHandle">取 消</el-button>
+        <el-button type="primary" @click="onConfirmHandle(updateImg)">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -116,37 +94,28 @@
 
 <script>
 import { quillEditor } from 'vue-quill-editor'
+import { checkStrLen } from '@/utils/validate'
+
 export default {
   name: 'articleForm',
   components: { quillEditor },
   data () {
     var _self = this;
-    function chkstrlen(str){
-      var len = 0;
-      for (var i=0; i<str.length; i++) { 
-       var c = str.charCodeAt(i); 
-      //单字节加1 
-       if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) { 
-         len++; 
-       } 
-       else { 
-        len+=1; 
-       } 
-      } 
-      return len;
-    }
-    var validatrStrLen = (rule, value, callback) => {
 
+    var validatrStrLen = (rule, value, callback) => {
+      _self.titleLen = checkStrLen(value)
       if(!value) {
          callback(new Error('标题不能为空'));
       }else {
-        _self.titleLen = chkstrlen(value)
+        if(_self.titleLen > 30 || _self.titleLen < 6) {
+          callback(new Error('最少6个字符，最多不超过30个字符'));
+        }
       }
-      console.log(value)
     }
+
     return {
       isModifyStatus: false,
-      dialogPhotoVisible: false,
+      dialogVisible: false,
       titleLen: 0,
       editor: {
         options: {
@@ -158,7 +127,7 @@ export default {
         title: '',
         subTitle: '',
         content: '',
-        cover: '1111',
+        cover: '',
         desc: ''
       },
       rules: {
@@ -198,6 +167,19 @@ export default {
         desc: 'dddsdada'
       }
       this.renderArticleData(data)
+    },
+    initUpdateConfig (status, isContentPicture, from){
+      this.updateDialogStatus(status)
+    },
+    /**
+     * updateDialogStatus 更新弹窗状态（隐藏或显示）
+     * @param  { Boolean } status 弹窗状态 true false
+     * @return {[type]}        [description]
+     */
+    updateDialogStatus (status){
+      if(typeof status === 'boolean') {
+        this.dialogVisible = status;
+      }
     },
     /**
      * renderArticleData 在组件中渲染数据
@@ -258,7 +240,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss">
   .dialogPhoto .el-dialog {
     width : 845px !important;
   }
@@ -268,4 +250,30 @@ export default {
 .form-item .el-form-item__content {
   margin: 0 !important;
 }
+.warning {
+  .el-input-group__append {
+    color: #f00;
+  }
+}
+.article-cover-group {
+  .article-cover {
+    width: 150px;
+    height: 105px;
+    display: flex;
+    justify-content: center;
+    background: #f0f1f3;
+    cursor: pointer;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  } 
+  .iconfont {
+    font-size: 46px;
+    align-items: center;
+    display: flex;    
+    cursor: pointer;
+  }
+}
+
 </style>
